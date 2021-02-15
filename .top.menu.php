@@ -1,47 +1,69 @@
 <?
+
+/*<a href="#idea" class="header__nav-link">Идея</a>
+            <a href="#about" class="header__nav-link">О центре</a>
+            <a href="#why" class="header__nav-link">Зачем?</a>
+            <a href="#demand" class="header__nav-link">Требования</a>
+            <a href="#cases" class="header__nav-link">Кейсы</a>
+            <a href="#development" class="header__nav-link">Разработки</a>
+            <a href="#news" class="header__nav-link">Новости</a>
+            <a href="#footer" class="header__nav-link">Контакты</a>*/
 $aMenuLinks = Array(
 	Array(
-		"Блоги", 
-		"blogs/", 
+		"Идея",
+		"#idea",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Работа", 
-		"job/", 
+		"О центре",
+		"#about",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Фото", 
-		"photo/", 
+		"Зачем?",
+		"#why",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Объявления", 
-		"board/", 
+		"Требования",
+		"#demand",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Форум", 
-		"forum/", 
+		"Кейсы",
+		"#cases",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"События", 
-		"events-calendar/", 
+		"Разработки",
+		"#development",
 		Array(), 
 		Array(), 
 		"" 
 	),
+    Array(
+        "Новости",
+        "#news",
+        Array(),
+        Array(),
+        ""
+    ),Array(
+        "Контакты",
+        "#footer",
+        Array(),
+        Array(),
+        ""
+    ),
 	
 );
 ?>
