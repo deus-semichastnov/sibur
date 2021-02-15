@@ -1,22 +1,22 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"О проекте", 
-		"about/", 
+		"сибур digital",
+		"https://sibur.digital/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Размещение рекламы", 
-		"advertising/", 
+		"сайт сибура",
+		"https://www.sibur.ru/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Пользовательское соглашение", 
-		"agreement/", 
+		"habr сибура",
+		"https://habr.com/ru/company/sibur_official/",
 		Array(), 
 		Array(), 
 		"" 
