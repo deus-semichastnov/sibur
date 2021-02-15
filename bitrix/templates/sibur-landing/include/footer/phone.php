@@ -1,0 +1,1 @@
+<a href="tel:+74957775500" class="footer__phone">+7 (495)777-55-00</a>
