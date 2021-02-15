@@ -52,16 +52,21 @@ IncludeTemplateLangFile(__FILE__);
                 false
             );?>
         </a>
-        <nav class="header__nav">
-            <a href="#idea" class="header__nav-link">Идея</a>
-            <a href="#about" class="header__nav-link">О центре</a>
-            <a href="#why" class="header__nav-link">Зачем?</a>
-            <a href="#demand" class="header__nav-link">Требования</a>
-            <a href="#cases" class="header__nav-link">Кейсы</a>
-            <a href="#development" class="header__nav-link">Разработки</a>
-            <a href="#news" class="header__nav-link">Новости</a>
-            <a href="#footer" class="header__nav-link">Контакты</a>
-        </nav>
+        <? $APPLICATION->IncludeComponent("bitrix:menu", "top", Array(
+                "ROOT_MENU_TYPE" => "top",
+                "MAX_LEVEL" => "1",
+                "CHILD_MENU_TYPE" => "",
+                "USE_EXT" => "N",
+                "DELAY" => "N",
+                "MENU_TITLE" => "top",
+                "ALLOW_MULTI_SELECT" => "N",
+                "MENU_CACHE_TYPE" => "N",
+                "MENU_CACHE_TIME" => "3600",
+                "MENU_CACHE_USE_GROUPS" => "Y",
+                "MENU_CACHE_GET_VARS" => ""
+            )
+        ); ?>
+
         <a href="#" class="header__language">En</a>
         <a href="#quest" class="header__btn">Оставить заявку</a>
     </header>
