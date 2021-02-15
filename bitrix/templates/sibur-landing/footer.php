@@ -6,69 +6,81 @@ IncludeTemplateLangFile(__FILE__);
         <div class="container">
             <div class="footer__wrap">
                 <div class="footer__contacts">
-                    <a href="tel:+74957775500" class="footer__phone">+7 (495)777-55-00</a>
-                    <a href="mailto:innovation-center@sibur.ru" class="footer__mail">innovation-center@sibur.ru</a>
+                    <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        array(
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "AREA_FILE_SHOW" => "file",
+                            "PATH" => SITE_TEMPLATE_PATH."/include/footer/phone.php",
+                            "EDIT_TEMPLATE" => ""
+                        ),
+                        false
+                    );?>
+                    <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        array(
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "AREA_FILE_SHOW" => "file",
+                            "PATH" => SITE_TEMPLATE_PATH."/include/footer/mail.php",
+                            "EDIT_TEMPLATE" => ""
+                        ),
+                        false
+                    );?>
                 </div>
-                <div class="footer__links">
-                    <a href="https://sibur.digital/" class="footer__links-item" target="_blank">
-                        сибур digital
-                        <svg>
-                            <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#link-icon"></use>
-                        </svg>
-                    </a>
-                    <a href="https://www.sibur.ru/" class="footer__links-item" target="_blank">
-                        сайт сибура
-                        <svg>
-                            <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#link-icon"></use>
-                        </svg>
-                    </a>
-                    <a href="https://habr.com/ru/company/sibur_official/" class="footer__links-item" target="_blank">
-                        habr сибура
-                        <svg>
-                            <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#link-icon"></use>
-                        </svg>
-                    </a>
-                </div>
-                <div class="footer__social">
-                    Подписывайтесь
-                    <div class="footer__social-wrap">
-                        <a href="#" class="footer__social-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-fb"></use>
-                            </svg>
-                        </a>
-                        <a href="#" class="footer__social-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-vk"></use>
-                            </svg>
-                        </a>
-                        <a href="#" class="footer__social-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-insta"></use>
-                            </svg>
-                        </a>
-                        <a href="#" class="footer__social-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-odnok"></use>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                <? $APPLICATION->IncludeComponent("bitrix:menu", "footer", Array(
+                        "ROOT_MENU_TYPE" => "bottom",
+                        "MAX_LEVEL" => "1",
+                        "CHILD_MENU_TYPE" => "",
+                        "USE_EXT" => "N",
+                        "DELAY" => "N",
+                        "MENU_TITLE" => "bottom",
+                        "ALLOW_MULTI_SELECT" => "N",
+                        "MENU_CACHE_TYPE" => "N",
+                        "MENU_CACHE_TIME" => "3600",
+                        "MENU_CACHE_USE_GROUPS" => "Y",
+                        "MENU_CACHE_GET_VARS" => ""
+                    )
+                ); ?>
+                <?$APPLICATION->IncludeComponent(
+                    "bitrix:main.include",
+                    ".default",
+                    array(
+                        "COMPONENT_TEMPLATE" => ".default",
+                        "AREA_FILE_SHOW" => "file",
+                        "PATH" => SITE_TEMPLATE_PATH."/include/footer/social.php",
+                        "EDIT_TEMPLATE" => ""
+                    ),
+                    false
+                );?>
                 <div class="footer__address">
-                    Головной офис: <span>117218, Москва, ул. Кржижановского, д. 14, к.3,</span>
+                    <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        array(
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "AREA_FILE_SHOW" => "file",
+                            "PATH" => SITE_TEMPLATE_PATH."/include/footer/main-office.php",
+                            "EDIT_TEMPLATE" => ""
+                        ),
+                        false
+                    );?>
                 </div>
                 <a href="#quest" class="footer__btn fancybox-link">Оставить заявку</a>
             </div>
             <div class="footer__bot">
-                <div class="footer__cookie">Для повышения удобства работы с сайтом СИБУР Диджитал использует файлы
-                    cookie. В cookie содержатся данные о прошлых посещениях сайта. Если вы не хотите, чтобы эти данные
-                    обрабатывались, отключите cookie в настройках браузера</div>
-                <a href="https://de-us.ru/" class="footer__by" target="_blank">
-                    design by
-                    <svg>
-                        <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#deus-logo"></use>
-                    </svg>
-                </a>
+                <?$APPLICATION->IncludeComponent(
+                    "bitrix:main.include",
+                    ".default",
+                    array(
+                        "COMPONENT_TEMPLATE" => ".default",
+                        "AREA_FILE_SHOW" => "file",
+                        "PATH" => SITE_TEMPLATE_PATH."/include/footer/footer-desc.php",
+                        "EDIT_TEMPLATE" => ""
+                    ),
+                    false
+                );?>
             </div>
         </div>
     </footer>
