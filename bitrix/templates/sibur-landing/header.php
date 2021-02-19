@@ -30,6 +30,8 @@ IncludeTemplateLangFile(__FILE__);
     <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/jquery.inputmask.js"); ?>
     <!-- RELLAX -->
     <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/rellax.min.js"); ?>
+    <!-- WOWjs -->
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/wow.min.js"); ?>
     <!-- Three.js-->
     <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/three.js"); ?>
     <!-- CUSTOM -->
