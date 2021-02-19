@@ -18,7 +18,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
                         <?if($slide["PROPERTY_ACTIVE_SLIDE_VALUE"]){
                             $active = " active";
                         }?>
-                        <?//echo "<pre>"; print_r($slide); echo "</pre>";?>
                         <div class="why__offer-item<?=$active?> increase__item">
                             <img src="<?=$slide["PIC_SRC"]?>" alt="<?=$slide["NAME"]?>">
                             <div class="why__offer-descr"><?=$slide["PREVIEW_TEXT"]?></div>
