@@ -2,81 +2,54 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
     die();
 ?>
-<?//echo "<pre>"; print_r($arResult); echo "</pre>";?>
 <? if (!empty($arResult)): ?>
     <div class="idea__wrap">
-        <div class="idea__elem">
-            <h3 class="heading-tertiary">сибур</h3>
-            <h2 class="heading-secondary">Крупнейшая нефтехимическая компания в России</h2>
-            <div class="idea__descr">На пути цифровизации принимает ваши предложения по модернизации
-                бизнеса
-                и внедрению новых продуктов.
-            </div>
-            <div class="idea__picture">
-                <h4 class="heading-quaternary">• идея</h4>
-                <div class="idea__picture-wrap">
-                    <div class="idea__picture-img"><img src="<?=SITE_TEMPLATE_PATH?>/img/idea-1.png"
-                                                        alt="Крупнейшая нефтехимическая компания в России">
-                    </div>
-                    <div class="idea__picture-img --bg rellax"><img src="<?=SITE_TEMPLATE_PATH?>/img/idea-2.svg" alt="сибур">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="idea__elem">
-            <h3 class="heading-tertiary">Идея</h3>
-            <h2 class="heading-secondary">Компания СИБУР приглашает к сотрудничеству </h2>
-            <div class="idea__descr">Коллективы и команды, которые готовы предложить новые уникальные
-                промышленные решения для трансформации различных направлений деятельности компании
-            </div>
-            <div class="idea__a">
-                <div class="idea__cta">
-                    <div class="idea__cta-text">Коллективы и команды, которые готовы предложить новые
-                        уникальные промышленные решения для трансформации различных направлений
-                        деятельности компании
-                    </div>
-                    <div class="idea__cta-title">У вас есть, что нам предложить?</div>
-                    <div class="idea__cta-time">
-                        <svg>
-                            <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#watch-icon"></use>
-                        </svg>
-                        всего 15 минут
-                    </div>
-                    <a href="#quest" class="btn --green fancybox-link">
-                        Заполните анкету
-                        <div class="btn__plus">
-                            <div class="btn__plus-round"></div>
-                            <div class="btn__plus-p"></div>
+        <?foreach ($arResult["ITEMS"] as $item):?>
+            <div class="idea__elem">
+                <h3 class="heading-tertiary"><?=$item["NAME"]?></h3>
+                <h2 class="heading-secondary"><?=$item["DISPLAY_PROPERTIES"]["TITLE_BLOCK"]["VALUE"]?></h2>
+                <div class="idea__descr"><?=$item["DISPLAY_PROPERTIES"]["TEXT_BLOCK"]["VALUE"]["TEXT"]?></div>
+                <div class="idea__picture">
+                    <h4 class="heading-quaternary"><?=$arResult["DISPLAY_PROPERTIES"]["NEXT_BLOCK"]["VALUE"]?></h4>
+                    <?if($item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["ID"]):?>
+                        <div class="idea__picture-wrap">
+                            <div class="idea__picture-img">
+                                <img src="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["SRC"]?>" alt="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["DESCRIPTION"]?>">
+                            </div>
+                            <div class="idea__picture-img --bg rellax">
+                                <img src="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][1]["SRC"]?>" alt="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][1]["DESCRIPTION"]?>">
+                            </div>
                         </div>
-                    </a>
+                    <?endif;?>
                 </div>
-                <div class="idea__info">
-                    <div class="idea__info-item">
-                        <svg>
-                            <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#idea-icon-1"></use>
-                        </svg>
-                        <div class="idea__info-text">Технологические стартапы и компании</div>
+                <?if($item["DISPLAY_PROPERTIES"]["BENEFITS"]["VALUE"]["TEXT"] != ""):?>
+                    <div class="idea__a">
+                        <?=$item["DISPLAY_PROPERTIES"]["BENEFITS"]["~VALUE"]["TEXT"];?>
                     </div>
-                    <div class="idea__info-item">
-                        <svg>
-                            <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#idea-icon-2"></use>
-                        </svg>
-                        <div class="idea__info-text">Научные коллективы</div>
+                <?endif;?>
+                <?if($item["DISPLAY_PROPERTIES"]["SLIDER"]["VALUE"] !=""):?>
+                    <?$arSlides = getSlides($item["DISPLAY_PROPERTIES"]["SLIDER"]["VALUE"]);?>
+                    <?//echo "<pre>"; print_r($arSlides); echo "</pre>";?>
+                    <div class="about__content">
+                        <?foreach ($arSlides as $slide):?>
+                            <?$activeSlide = "";
+                            if($slide["PROPERTY_ACTIVE_SLIDE_VALUE"] != ""){
+                                $activeSlide = " active";
+                            }?>
+                            <div class="about__item increase__item<?=$activeSlide?>">
+                                <div class="about__item-info">
+                                    <?if($slide["PIC_SRC"]):?>
+                                        <img src="<?=$slide["PIC_SRC"]?>" alt="<?=$slide["NAME"]?>">
+                                    <?endif;?>
+                                    <div class="about__item-num"><?=$slide["NAME"]?>.</div>
+                                </div>
+                                <div class="about__item-text"><?=$slide["PREVIEW_TEXT"]?></div>
+                            </div>
+                        <?endforeach;?>
+
                     </div>
-                    <div class="idea__info-item">
-                        <svg>
-                            <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#idea-icon-3"></use>
-                        </svg>
-                        <div class="idea__info-text">НИИ и лаборатории</div>
-                    </div>
-                    <div class="idea__info-item">
-                        <svg>
-                            <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#idea-icon-4"></use>
-                        </svg>
-                        <div class="idea__info-text">Инновационные команды</div>
-                    </div>
-                </div>
+                <?endif;?>
             </div>
-        </div>
+        <?endforeach;?>
     </div>
 <? endif ?>
