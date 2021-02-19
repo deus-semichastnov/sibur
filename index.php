@@ -17,20 +17,33 @@ $APPLICATION->SetTitle("Главная");
 
     <section class="start">
         <div class="container">
-            <div class="start__content">
-                <h1 class="heading-primary">Стань частью Центра инноваций <span>СИБУР</span></h1>
-                <div class="start__detail">
-                    • подробнее
-                    <div class="start__detail-btn">
-                        <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M8.98242 10.4167L4.63767 14.7614L0.292927 10.4167L1.2453 9.46432L3.96424 12.1833L3.96424 0.467041L5.31111 0.467041L5.31111 12.1833L8.03005 9.46432L8.98242 10.4167Z"
-                                  fill="white"/>
-                        </svg>
+            <?$APPLICATION->IncludeComponent("bitrix:news.detail","start",Array(
+                    "IBLOCK_TYPE" => "screens",
+                    "IBLOCK_ID" => "9",
+                    "ELEMENT_ID" => 94,
+                    "PROPERTY_CODE" => Array("NEXT_BLOCK"),
+                    "SET_TITLE" => "N",
+                    "SET_CANONICAL_URL" => "N",
+                    "SET_BROWSER_TITLE" => "N",
+                    "BROWSER_TITLE" => "-",
+                    "SET_META_KEYWORDS" => "N",
+                    "META_KEYWORDS" => "-",
+                    "SET_META_DESCRIPTION" => "N",
+                    "META_DESCRIPTION" => "-",
+                    "SET_STATUS_404" => "N",
+                    "SET_LAST_MODIFIED" => "N",
+                    "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                    "ADD_SECTIONS_CHAIN" => "N",
+                    "ADD_ELEMENT_CHAIN" => "N",
+                    "USE_PERMISSIONS" => "N",
+                    "CACHE_TYPE" => "N",
+                    "CACHE_TIME" => "3600",
+                    "CACHE_GROUPS" => "Y",
+                    "SHOW_404" => "N",
+                    "MESSAGE_404" => "",
+                )
+            );?>
 
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -43,228 +56,97 @@ $APPLICATION->SetTitle("Главная");
 
         <section class="idea" id="idea">
             <div class="container">
-                <div class="idea__wrap">
-                    <div class="idea__elem">
-                        <h3 class="heading-tertiary">сибур</h3>
-                        <h2 class="heading-secondary">Крупнейшая нефтехимическая компания в России</h2>
-                        <div class="idea__descr">На пути цифровизации принимает ваши предложения по модернизации
-                            бизнеса
-                            и внедрению новых продуктов.
-                        </div>
-                        <div class="idea__picture">
-                            <h4 class="heading-quaternary">• идея</h4>
-                            <div class="idea__picture-wrap">
-                                <div class="idea__picture-img"><img src="<?=SITE_TEMPLATE_PATH?>/img/idea-1.png"
-                                                                    alt="Крупнейшая нефтехимическая компания в России">
-                                </div>
-                                <div class="idea__picture-img --bg rellax"><img src="<?=SITE_TEMPLATE_PATH?>/img/idea-2.svg" alt="сибур">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="idea__elem">
-                        <h3 class="heading-tertiary">Идея</h3>
-                        <h2 class="heading-secondary">Компания СИБУР приглашает к сотрудничеству </h2>
-                        <div class="idea__descr">Коллективы и команды, которые готовы предложить новые уникальные
-                            промышленные решения для трансформации различных направлений деятельности компании
-                        </div>
-                        <div class="idea__a">
-                            <div class="idea__cta">
-                                <div class="idea__cta-text">Коллективы и команды, которые готовы предложить новые
-                                    уникальные промышленные решения для трансформации различных направлений
-                                    деятельности компании
-                                </div>
-                                <div class="idea__cta-title">У вас есть, что нам предложить?</div>
-                                <div class="idea__cta-time">
-                                    <svg>
-                                        <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#watch-icon"></use>
-                                    </svg>
-                                    всего 15 минут
-                                </div>
-                                <a href="#quest" class="btn --green fancybox-link">
-                                    Заполните анкету
-                                    <div class="btn__plus">
-                                        <div class="btn__plus-round"></div>
-                                        <div class="btn__plus-p"></div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="idea__info">
-                                <div class="idea__info-item">
-                                    <svg>
-                                        <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#idea-icon-1"></use>
-                                    </svg>
-                                    <div class="idea__info-text">Технологические стартапы и компании</div>
-                                </div>
-                                <div class="idea__info-item">
-                                    <svg>
-                                        <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#idea-icon-2"></use>
-                                    </svg>
-                                    <div class="idea__info-text">Научные коллективы</div>
-                                </div>
-                                <div class="idea__info-item">
-                                    <svg>
-                                        <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#idea-icon-3"></use>
-                                    </svg>
-                                    <div class="idea__info-text">НИИ и лаборатории</div>
-                                </div>
-                                <div class="idea__info-item">
-                                    <svg>
-                                        <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#idea-icon-4"></use>
-                                    </svg>
-                                    <div class="idea__info-text">Инновационные команды</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?$APPLICATION->IncludeComponent("bitrix:news.list","two_screen",Array(
+                        "IBLOCK_TYPE" => "screens",
+                        "IBLOCK_ID" => "10",
+                        "NEWS_COUNT" => "3",
+                        "SORT_BY1" => "ACTIVE_FROM",
+                        "SORT_ORDER1" => "DESC",
+                        "SORT_BY2" => "SORT",
+                        "SORT_ORDER2" => "ASC",
+                        "FILTER_NAME" => "",
+                        "FIELD_CODE" => Array("ID"),
+                        "PROPERTY_CODE" => Array("TITLE_BLOCK","TEXT_BLOCK","NEXT_BLOCK","IMG_BLOCK","SLIDER","BENEFITS",),
+                        "SET_TITLE" => "N",
+                        "SET_BROWSER_TITLE" => "N",
+                        "SET_META_KEYWORDS" => "N",
+                        "SET_META_DESCRIPTION" => "N",
+                        "SET_LAST_MODIFIED" => "N",
+                        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
+                        "CACHE_TYPE" => "N",
+                        "CACHE_TIME" => "3600",
+                        "CACHE_FILTER" => "Y",
+                        "CACHE_GROUPS" => "Y",
+                        "DISPLAY_TOP_PAGER" => "N",
+                        "DISPLAY_BOTTOM_PAGER" => "N",
+                        "SET_STATUS_404" => "N",
+                        "SHOW_404" => "N",
+                        "MESSAGE_404" => ""
+                    )
+                );?>
             </div>
         </section>
 
 
-        <section class="about" id="about">
-            <div class="container">
-                <div class="about__wrap">
-                    <h3 class="heading-tertiary">О центре</h3>
-                    <h2 class="heading-secondary">Что такое Центр инноваций?</h2>
-                    <div class="about__content">
-                        <div class="about__item increase__item">
-                            <div class="about__item-info">
-                                <svg>
-                                    <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#about-icon-1"></use>
-                                </svg>
-                                <div class="about__item-num">01.</div>
-                            </div>
-                            <div class="about__item-text">У нас много актуальных технологических вызовов, которые
-                                требуют специфичных и кастомных решений
-                            </div>
-                        </div>
-                        <div class="about__item active increase__item">
-                            <div class="about__item-info">
-                                <svg>
-                                    <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#about-icon-2"></use>
-                                </svg>
-                                <div class="about__item-num">02.</div>
-                            </div>
-                            <div class="about__item-text">Канал быстрого привлечения внешней экспертизы для решения
-                                актуальных задач СИБУР
-                            </div>
-                        </div>
-                        <div class="about__item increase__item">
-                            <div class="about__item-info">
-                                <svg>
-                                    <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#about-icon-3"></use>
-                                </svg>
-                                <div class="about__item-num">03.</div>
-                            </div>
-                            <div class="about__item-text">В нашем фокусе задача по созданию «единого окна» для
-                                поставщиков инновационных продуктов на рынке России и зарубежья
-                            </div>
-                        </div>
-                    </div>
-                    <h4 class="heading-quaternary">• зачем</h4>
-                </div>
-            </div>
-        </section>
 
 
         <section class="why" id="why">
             <div class="container">
                 <div class="why__wrap">
-                    <h3 class="heading-tertiary">Зачем</h3>
-                    <h2 class="heading-secondary">Почему СИБУР нуждается в вашем предложении?</h2>
-                    <div class="why__picture">
-                        <div class="why__picture-img --bg">
-                            <img src="<?=SITE_TEMPLATE_PATH?>/img/why-1.png" alt="Зачем">
-                        </div>
-                        <div class="why__picture-img rellax --anim">
-                            <img src="<?=SITE_TEMPLATE_PATH?>/img/why-2.png" alt="Почему СИБУР нуждается в вашем предложении?">
-                        </div>
-                    </div>
-                    <div class="why__tabs">
-                        <div class="why__tabs-info">
-                            <div class="why__tabs-btn active">
-                                <div class="why__tabs-checkbox"></div>
-                                Технологически вызовы
-                            </div>
-                            <div class="why__tabs-btn">
-                                <div class="why__tabs-checkbox"></div>
-                                Культура компании
-                            </div>
-                            <div class="why__tabs-btn">
-                                <div class="why__tabs-checkbox"></div>
-                                Фокус
-                            </div>
-                        </div>
-                        <div class="why__tabs-content show">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#tabs-icon-1"></use>
-                            </svg>
-                            <div class="why__tabs-text">У нас много актуальных технологических вызовов, которые
-                                требуют специфичных и кастомных решений
-                            </div>
-                        </div>
-                        <div class="why__tabs-content">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#tabs-icon-1"></use>
-                            </svg>
-                            <div class="why__tabs-text">Уникальные и нестандартные задачи решаются с помощью передовых
-                                технологий, неожиданных идей и талантов, которые объединяются здесь, в СИБУРЕ. Мы
-                                нацелены на раскрытие и объединении всех участников, ведь именно так возможно решить
-                                самые неординарные задачи.
-                            </div>
-                        </div>
-                        <div class="why__tabs-content">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#tabs-icon-1"></use>
-                            </svg>
-                            <div class="why__tabs-text">Новаторские подходы, передовые технологии. Все это мы используем
-                                для достижения максимального результата. Мы не останавливаемся на достигнутом, каждый
-                                раз находимся в поиске свежих идей и знаний, совершенствуем технологии и повышаем
-                                эффективность работы компаний
-                            </div>
-                        </div>
-                    </div>
-                    <div class="why__offer">
-                        <div class="why__offer-wrap">
-                            <div class="why__offer-title">
-                                <h3 class="heading-tertiary">Уже есть, готовые проекты?</h3>
-                                <h2 class="heading-secondary">Вы можете предложить </h2>
-                            </div>
-                            <div class="why__offer-content">
-                                <div class="why__offer-item active increase__item">
-                                    <svg>
-                                        <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#why-icon-1"></use>
-                                    </svg>
-                                    <div class="why__offer-descr">Цифровое решение для конкретных бизнес-задач
-                                    </div>
-                                    <a href="#quest" class="btn --white fancybox-link">
-                                        Предложить
-                                        <div class="btn__plus">
-                                            <div class="btn__plus-round"></div>
-                                            <div class="btn__plus-p"></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="why__offer-item increase__item">
-                                    <svg>
-                                        <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-main.svg#why-icon-2"></use>
-                                    </svg>
-                                    <div class="why__offer-descr">Представить собственную технологию по другим
-                                        тематикам
-                                    </div>
-                                    <a href="#quest" class="btn --white fancybox-link">
-                                        Предложить
-                                        <div class="btn__plus">
-                                            <div class="btn__plus-round"></div>
-                                            <div class="btn__plus-p"></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="heading-quaternary">• 5 причин подать заявку</h4>
-                    </div>
+                    <?$APPLICATION->IncludeComponent("bitrix:news.detail","why_wrap_1",Array(
+                            "IBLOCK_TYPE" => "screens",
+                            "IBLOCK_ID" => "12",
+                            "ELEMENT_ID" => 106,
+                            "PROPERTY_CODE" => Array("NEXT_BLOCK","TITLE_BLOCK","IMG_BLOCK","SLIDER"),
+                            "SET_TITLE" => "N",
+                            "SET_CANONICAL_URL" => "N",
+                            "SET_BROWSER_TITLE" => "N",
+                            "BROWSER_TITLE" => "-",
+                            "SET_META_KEYWORDS" => "N",
+                            "META_KEYWORDS" => "-",
+                            "SET_META_DESCRIPTION" => "N",
+                            "META_DESCRIPTION" => "-",
+                            "SET_STATUS_404" => "N",
+                            "SET_LAST_MODIFIED" => "N",
+                            "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                            "ADD_SECTIONS_CHAIN" => "N",
+                            "ADD_ELEMENT_CHAIN" => "N",
+                            "USE_PERMISSIONS" => "N",
+                            "CACHE_TYPE" => "N",
+                            "CACHE_TIME" => "3600",
+                            "CACHE_GROUPS" => "Y",
+                            "SHOW_404" => "N",
+                            "MESSAGE_404" => "",
+                        )
+                    );?>
+                    <?$APPLICATION->IncludeComponent("bitrix:news.detail","why_wrap_2",Array(
+                            "IBLOCK_TYPE" => "screens",
+                            "IBLOCK_ID" => "12",
+                            "ELEMENT_ID" => 107,
+                            "PROPERTY_CODE" => Array("NEXT_BLOCK","TITLE_BLOCK","IMG_BLOCK","SLIDER"),
+                            "SET_TITLE" => "N",
+                            "SET_CANONICAL_URL" => "N",
+                            "SET_BROWSER_TITLE" => "N",
+                            "BROWSER_TITLE" => "-",
+                            "SET_META_KEYWORDS" => "N",
+                            "META_KEYWORDS" => "-",
+                            "SET_META_DESCRIPTION" => "N",
+                            "META_DESCRIPTION" => "-",
+                            "SET_STATUS_404" => "N",
+                            "SET_LAST_MODIFIED" => "N",
+                            "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                            "ADD_SECTIONS_CHAIN" => "N",
+                            "ADD_ELEMENT_CHAIN" => "N",
+                            "USE_PERMISSIONS" => "N",
+                            "CACHE_TYPE" => "N",
+                            "CACHE_TIME" => "3600",
+                            "CACHE_GROUPS" => "Y",
+                            "SHOW_404" => "N",
+                            "MESSAGE_404" => "",
+                        )
+                    );?>
                 </div>
             </div>
         </section>
@@ -272,119 +154,84 @@ $APPLICATION->SetTitle("Главная");
 
         <section class="demand" id="demand">
             <div class="container">
-                <h2 class="heading-secondary">5 причины подать заявку уже сейчас</h2>
-
-                <div class="demand__reason">
-                    <div class="demand__reason-item">
-                        <div class="demand__reason-num">№1</div>
-                        <div class="demand__reason-text">Вы сможете получить доступ к реальным задачам бизнеса
-                            и внутренней экспертизе компании
-                        </div>
-                    </div>
-                    <div class="demand__reason-item">
-                        <div class="demand__reason-num">№2</div>
-                        <div class="demand__reason-text">Это возможность провести апробацию, тестирование,
-                            пилотирование и внедрение технологического решения
-                        </div>
-                    </div>
-                    <div class="demand__reason-item">
-                        <div class="demand__reason-num">№3</div>
-                        <div class="demand__reason-text">Получите оценку применимости ваших решений через призму
-                            актуальных потребностей бизнеса
-                        </div>
-                    </div>
-                    <div class="demand__chart">
-                        <div class="demand__chart-axis"></div>
-                        <svg viewBox="0 0 1365 99" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                    d="M1.52148 54.6574C117.791 -13.903 191.426 -17.994 314.421 51.5924C425.199 114.267 569.045 93.2033 660.494 51.5924C797.766 -10.8693 874.73 -11.5779 1012 51.5924C1147.77 109.025 1223.05 117.546 1363.76 46.5489"
-                                    stroke="#25C1CB" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        <div class="demand__chart-title">Причины</div>
-                    </div>
-                    <div class="demand__reason-item">
-                        <div class="demand__reason-num">№4</div>
-                        <div class="demand__reason-text">Сможете предложить свою технологию или продукт и получить
-                            оперативную обратную связь
-                        </div>
-                    </div>
-                    <div class="demand__reason-item">
-                        <div class="demand__reason-num">№5</div>
-                        <div class="demand__reason-text">А также участвовать в открытых
-                            цифровых мероприятиях компании СИБУР
-                        </div>
-                    </div>
-                </div>
-
-                <div class="demand__d">
-                    <h3 class="heading-tertiary">требования</h3>
-                    <h2 class="heading-secondary">Минимальные
-                        требования к командам</h2>
-                    <div class="demand__d-content">
-                        <div class="demand__d-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#icon-check"></use>
-                            </svg>
-                            <div class="demand__d-text">У вас есть одна или несколько ключевых специализаций</div>
-                        </div>
-                        <div class="demand__d-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#icon-check"></use>
-                            </svg>
-                            <div class="demand__d-text">Готовы сотрудничать с другими командами и бизнес-заказчиками
-                                в рамках разработки или внедрения комплексного решения
-                            </div>
-                        </div>
-                        <div class="demand__d-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#icon-check"></use>
-                            </svg>
-                            <div class="demand__d-text">Достаточно опыта и квалификации, чтобы самостоятельно
-                                разрабатывать или внедрять
-                                решения / части решения
-                            </div>
-                        </div>
-                        <div class="demand__d-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#icon-check"></use>
-                            </svg>
-                            <div class="demand__d-text">У вас есть опыт создания кастомного продукта в течение
-                                последних 12 месяцев
-                            </div>
-                        </div>
-                        <div class="demand__d-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#icon-check"></use>
-                            </svg>
-                            <div class="demand__d-text">Вам интересна тема разработки решений, которых еще нет на
-                                рынке
-                            </div>
-                        </div>
-                        <div class="demand__d-item">
-                            <svg>
-                                <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#icon-check"></use>
-                            </svg>
-                            <div class="demand__d-text">Вы готовы работать в сжатых сроках (прототип за 3 месяца)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="demand__steps">
-                    <h3 class="heading-tertiary">3 этапа</h3>
-                    <div class="demand__steps-content">
-                        <div class="demand__steps-descr">Проработка заявок будет проходить в 3 этапа при этом каждая
-                            компания получит обратную связь:
-                        </div>
-                        <div class="demand__steps-s">
-                            <div class="demand__steps-item">Первичный анализ</div>
-                            <div class="demand__steps-item">Экспертная оценка</div>
-                            <div class="demand__steps-item">Интервью</div>
-                        </div>
-                    </div>
-                    <h4 class="heading-quaternary">• Кейсы</h4>
-                </div>
-
+                <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_1",Array(
+                        "IBLOCK_TYPE" => "screens",
+                        "IBLOCK_ID" => "13",
+                        "ELEMENT_ID" => 108,
+                        "PROPERTY_CODE" => Array("NEXT_BLOCK","TEXTS"),
+                        "SET_TITLE" => "N",
+                        "SET_CANONICAL_URL" => "N",
+                        "SET_BROWSER_TITLE" => "N",
+                        "BROWSER_TITLE" => "-",
+                        "SET_META_KEYWORDS" => "N",
+                        "META_KEYWORDS" => "-",
+                        "SET_META_DESCRIPTION" => "N",
+                        "META_DESCRIPTION" => "-",
+                        "SET_STATUS_404" => "N",
+                        "SET_LAST_MODIFIED" => "N",
+                        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "ADD_ELEMENT_CHAIN" => "N",
+                        "USE_PERMISSIONS" => "N",
+                        "CACHE_TYPE" => "N",
+                        "CACHE_TIME" => "3600",
+                        "CACHE_GROUPS" => "Y",
+                        "SHOW_404" => "N",
+                        "MESSAGE_404" => "",
+                    )
+                );?>
+                <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_d",Array(
+                        "IBLOCK_TYPE" => "screens",
+                        "IBLOCK_ID" => "13",
+                        "ELEMENT_ID" => 109,
+                        "PROPERTY_CODE" => Array("NEXT_BLOCK","TEXTS"),
+                        "SET_TITLE" => "N",
+                        "SET_CANONICAL_URL" => "N",
+                        "SET_BROWSER_TITLE" => "N",
+                        "BROWSER_TITLE" => "-",
+                        "SET_META_KEYWORDS" => "N",
+                        "META_KEYWORDS" => "-",
+                        "SET_META_DESCRIPTION" => "N",
+                        "META_DESCRIPTION" => "-",
+                        "SET_STATUS_404" => "N",
+                        "SET_LAST_MODIFIED" => "N",
+                        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "ADD_ELEMENT_CHAIN" => "N",
+                        "USE_PERMISSIONS" => "N",
+                        "CACHE_TYPE" => "N",
+                        "CACHE_TIME" => "3600",
+                        "CACHE_GROUPS" => "Y",
+                        "SHOW_404" => "N",
+                        "MESSAGE_404" => "",
+                    )
+                );?>
+                <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_steps",Array(
+                        "IBLOCK_TYPE" => "screens",
+                        "IBLOCK_ID" => "13",
+                        "ELEMENT_ID" => 110,
+                        "PROPERTY_CODE" => Array("NEXT_BLOCK","TEXTS"),
+                        "SET_TITLE" => "N",
+                        "SET_CANONICAL_URL" => "N",
+                        "SET_BROWSER_TITLE" => "N",
+                        "BROWSER_TITLE" => "-",
+                        "SET_META_KEYWORDS" => "N",
+                        "META_KEYWORDS" => "-",
+                        "SET_META_DESCRIPTION" => "N",
+                        "META_DESCRIPTION" => "-",
+                        "SET_STATUS_404" => "N",
+                        "SET_LAST_MODIFIED" => "N",
+                        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "ADD_ELEMENT_CHAIN" => "N",
+                        "USE_PERMISSIONS" => "N",
+                        "CACHE_TYPE" => "N",
+                        "CACHE_TIME" => "3600",
+                        "CACHE_GROUPS" => "Y",
+                        "SHOW_404" => "N",
+                        "MESSAGE_404" => "",
+                    )
+                );?>
             </div>
         </section>
 
