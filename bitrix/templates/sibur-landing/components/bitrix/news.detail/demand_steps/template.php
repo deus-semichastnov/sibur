@@ -5,17 +5,17 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
 
 <? if (!empty($arResult)): ?>
     <div class="demand__steps">
-        <h3 class="heading-tertiary">3 этапа</h3>
+        <h3 class="heading-tertiary"><?=$arResult["NAME"]?></h3>
         <div class="demand__steps-content">
-            <div class="demand__steps-descr">Проработка заявок будет проходить в 3 этапа при этом каждая
-                компания получит обратную связь:
-            </div>
-            <div class="demand__steps-s">
-                <div class="demand__steps-item">Первичный анализ</div>
-                <div class="demand__steps-item">Экспертная оценка</div>
-                <div class="demand__steps-item">Интервью</div>
-            </div>
+            <div class="demand__steps-descr"><?=$arResult["PREVIEW_TEXT"]?></div>
+            <?if($arResult["PROPERTIES"]["TEXTS"]["VALUE"]):?>
+                <div class="demand__steps-s">
+                    <?foreach ($arResult["PROPERTIES"]["TEXTS"]["VALUE"] as $key => $text):?>
+                        <div class="demand__steps-item"><?=$text["TEXT"]?></div>
+                    <?endforeach;?>
+                </div>
+            <?endif;?>
         </div>
-        <h4 class="heading-quaternary">• Кейсы</h4>
+        <h4 class="heading-quaternary"><?=$arResult["PROPERTIES"]["NEXT_BLOCK"]["VALUE"]?></h4>
     </div>
 <? endif ?>
