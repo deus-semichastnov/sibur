@@ -68,102 +68,34 @@ $this->setFrameMode(true);
 	),
 	$component
 );?>
-<p><a href="<?=$arResult["FOLDER"].$arResult["URL_TEMPLATES"]["news"]?>"><?=GetMessage("T_NEWS_DETAIL_BACK")?></a></p>
-<?if($arParams["USE_RATING"]=="Y" && $ElementID):?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:iblock.vote",
-	"",
-	Array(
-		"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-		"ELEMENT_ID" => $ElementID,
-		"MAX_VOTE" => $arParams["MAX_VOTE"],
-		"VOTE_NAMES" => $arParams["VOTE_NAMES"],
-		"CACHE_TYPE" => $arParams["CACHE_TYPE"],
-		"CACHE_TIME" => $arParams["CACHE_TIME"],
-	),
-	$component
+<?$APPLICATION->IncludeComponent("bitrix:news.list","news_other",Array(
+        "IBLOCK_TYPE" => "news",
+        "IBLOCK_ID" => "18",
+        "NEWS_COUNT" => "3",
+        "SORT_BY1" => "ACTIVE_FROM",
+        "SORT_ORDER1" => "DESC",
+        "SORT_BY2" => "SORT",
+        "SORT_ORDER2" => "ASC",
+        "FILTER_NAME" => "",
+        "FIELD_CODE" => Array("ID"),
+        "PROPERTY_CODE" => Array(),
+        "ACTIVE_DATE_FORMAT"=>"j F Y",
+        "SET_TITLE" => "N",
+        "SET_BROWSER_TITLE" => "N",
+        "SET_META_KEYWORDS" => "N",
+        "SET_META_DESCRIPTION" => "N",
+        "SET_LAST_MODIFIED" => "N",
+        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+        "ADD_SECTIONS_CHAIN" => "N",
+        "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
+        "CACHE_TYPE" => "N",
+        "CACHE_TIME" => "3600",
+        "CACHE_FILTER" => "Y",
+        "CACHE_GROUPS" => "Y",
+        "DISPLAY_TOP_PAGER" => "N",
+        "DISPLAY_BOTTOM_PAGER" => "N",
+        "SET_STATUS_404" => "N",
+        "SHOW_404" => "N",
+        "MESSAGE_404" => ""
+    )
 );?>
-<?endif?>
-<?if($arParams["USE_CATEGORIES"]=="Y" && $ElementID):
-	global $arCategoryFilter;
-	$obCache = new CPHPCache;
-	$strCacheID = $componentPath.LANG.$arParams["IBLOCK_ID"].$ElementID.$arParams["CATEGORY_CODE"];
-	if(($tzOffset = CTimeZone::GetOffset()) <> 0)
-		$strCacheID .= "_".$tzOffset;
-	if($arParams["CACHE_TYPE"] == "N" || $arParams["CACHE_TYPE"] == "A" && COption::GetOptionString("main", "component_cache_on", "Y") == "N")
-		$CACHE_TIME = 0;
-	else
-		$CACHE_TIME = $arParams["CACHE_TIME"];
-	if($obCache->StartDataCache($CACHE_TIME, $strCacheID, $componentPath))
-	{
-		$rsProperties = CIBlockElement::GetProperty($arParams["IBLOCK_ID"], $ElementID, "sort", "asc", array("ACTIVE"=>"Y","CODE"=>$arParams["CATEGORY_CODE"]));
-		$arCategoryFilter = array();
-		while($arProperty = $rsProperties->Fetch())
-		{
-			if(is_array($arProperty["VALUE"]) && count($arProperty["VALUE"])>0)
-			{
-				foreach($arProperty["VALUE"] as $value)
-					$arCategoryFilter[$value]=true;
-			}
-			elseif(!is_array($arProperty["VALUE"]) && $arProperty["VALUE"] <> '')
-				$arCategoryFilter[$arProperty["VALUE"]]=true;
-		}
-		$obCache->EndDataCache($arCategoryFilter);
-	}
-	else
-	{
-		$arCategoryFilter = $obCache->GetVars();
-	}
-	if(count($arCategoryFilter)>0):
-		$arCategoryFilter = array(
-			"PROPERTY_".$arParams["CATEGORY_CODE"] => array_keys($arCategoryFilter),
-			"!"."ID" => $ElementID,
-		);
-		?>
-		<hr /><h3><?=GetMessage("CATEGORIES")?></h3>
-		<?foreach($arParams["CATEGORY_IBLOCK"] as $iblock_id):?>
-			<?$APPLICATION->IncludeComponent(
-				"bitrix:news.list",
-				$arParams["CATEGORY_THEME_".$iblock_id],
-				Array(
-					"IBLOCK_ID" => $iblock_id,
-					"NEWS_COUNT" => $arParams["CATEGORY_ITEMS_COUNT"],
-					"SET_TITLE" => "N",
-					"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
-					"CACHE_TYPE" => $arParams["CACHE_TYPE"],
-					"CACHE_TIME" => $arParams["CACHE_TIME"],
-					"CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-					"FILTER_NAME" => "arCategoryFilter",
-					"CACHE_FILTER" => "Y",
-					"DISPLAY_TOP_PAGER" => "N",
-					"DISPLAY_BOTTOM_PAGER" => "N",
-				),
-				$component
-			);?>
-		<?endforeach?>
-	<?endif?>
-<?endif?>
-<?if($arParams["USE_REVIEW"]=="Y" && IsModuleInstalled("forum") && $ElementID):?>
-<hr />
-<?$APPLICATION->IncludeComponent(
-	"bitrix:forum.topic.reviews",
-	"",
-	Array(
-		"CACHE_TYPE" => $arParams["CACHE_TYPE"],
-		"CACHE_TIME" => $arParams["CACHE_TIME"],
-		"MESSAGES_PER_PAGE" => $arParams["MESSAGES_PER_PAGE"],
-		"USE_CAPTCHA" => $arParams["USE_CAPTCHA"],
-		"PATH_TO_SMILE" => $arParams["PATH_TO_SMILE"],
-		"FORUM_ID" => $arParams["FORUM_ID"],
-		"URL_TEMPLATES_READ" => $arParams["URL_TEMPLATES_READ"],
-		"SHOW_LINK_TO_FORUM" => $arParams["SHOW_LINK_TO_FORUM"],
-		"DATE_TIME_FORMAT" => $arParams["DETAIL_ACTIVE_DATE_FORMAT"],
-		"ELEMENT_ID" => $ElementID,
-		"AJAX_POST" => $arParams["REVIEW_AJAX_POST"],
-		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-		"URL_TEMPLATES_DETAIL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["detail"],
-	),
-	$component
-);?>
-<?endif?>
