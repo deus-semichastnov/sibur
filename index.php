@@ -288,44 +288,37 @@ $APPLICATION->SetTitle("Главная");
                 "MESSAGE_404" => "",
             )
         );?>
+        <?$APPLICATION->IncludeComponent("bitrix:news.list","news_anons",Array(
+                "IBLOCK_TYPE" => "news",
+                "IBLOCK_ID" => "18",
+                "NEWS_COUNT" => "3",
+                "SORT_BY1" => "ACTIVE_FROM",
+                "SORT_ORDER1" => "DESC",
+                "SORT_BY2" => "SORT",
+                "SORT_ORDER2" => "ASC",
+                "FILTER_NAME" => "",
+                "FIELD_CODE" => Array("ID"),
+                "PROPERTY_CODE" => Array(),
+                "ACTIVE_DATE_FORMAT"=>"j F Y",
+                "SET_TITLE" => "N",
+                "SET_BROWSER_TITLE" => "N",
+                "SET_META_KEYWORDS" => "N",
+                "SET_META_DESCRIPTION" => "N",
+                "SET_LAST_MODIFIED" => "N",
+                "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                "ADD_SECTIONS_CHAIN" => "N",
+                "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
+                "CACHE_TYPE" => "N",
+                "CACHE_TIME" => "3600",
+                "CACHE_FILTER" => "Y",
+                "CACHE_GROUPS" => "Y",
+                "DISPLAY_TOP_PAGER" => "N",
+                "DISPLAY_BOTTOM_PAGER" => "N",
+                "SET_STATUS_404" => "N",
+                "SHOW_404" => "N",
+                "MESSAGE_404" => ""
+            )
+        );?>
 
-        <section class="news --section">
-            <div class="container">
-                <h3 class="heading-tertiary">новости</h3>
-                <div class="news__head">
-                    <h2 class="heading-secondary">Анонсы событий</h2>
-                    <a href="news.html" class="news__all">Все новости</a>
-                </div>
-
-                <div class="news__content swiper-container">
-                    <div class="swiper-wrapper">
-                        <a href="single.html" class="news__item swiper-slide">
-                            <div class="news__img">
-                                <img src="<?=SITE_TEMPLATE_PATH?>/img/news/news-1.png"
-                                     alt="Новая модель организационной деятельности сделала своё дело">
-                            </div>
-                            <div class="news__date">28 Января 2021</div>
-                            <div class="news__name">Новая модель организационной деятельности сделала своё дело</div>
-                        </a>
-                        <a href="single.html" class="news__item swiper-slide">
-                            <div class="news__img">
-                                <img src="<?=SITE_TEMPLATE_PATH?>/img/news/news-2.png"
-                                     alt="Светлый лик правового взаимодействия продолжает удивлять">
-                            </div>
-                            <div class="news__date">1 Февраля 2021</div>
-                            <div class="news__name">Светлый лик правового взаимодействия продолжает удивлять</div>
-                        </a>
-                        <a href="single.html" class="news__item swiper-slide">
-                            <div class="news__img">
-                                <img src="<?=SITE_TEMPLATE_PATH?>/img/news/news-3.png"
-                                     alt="Выбранный нами инновационный путь развеял последние сомнения">
-                            </div>
-                            <div class="news__date">3 Марта 2021</div>
-                            <div class="news__name">Выбранный нами инновационный путь развеял последние сомнения</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
