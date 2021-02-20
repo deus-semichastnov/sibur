@@ -27,4 +27,28 @@
         }
         return $arResult;
     }
+    function getCases($section_id){
+        $arResult = array();
+        if(CModule::IncludeModule("iblock"))
+        {
+            $arSelect = Array(
+                "ID",
+                "NAME",
+                "IBLOCK_ID",
+                "PROPERTY_TARGET",
+                "PROPERTY_TASKS",
+                "PREVIEW_TEXT"
+            );
+            $arFilter = Array("IBLOCK_ID"=>15, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "IBLOCK_SECTION_ID"=>$section_id);
+            //echo "<pre>"; print_r($arFilter); echo "</pre>";
+            $res = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, $arSelect);
+            while($ob = $res->GetNextElement())
+            {
+                $case["FIELDS"] = $ob->GetFields();
+                $case["PROPS"] = $ob->GetProperties();
+                $arResult[$case["FIELDS"]["ID"]] = $case;
+            }
+        }
+        return $arResult;
+    }
 ?>
