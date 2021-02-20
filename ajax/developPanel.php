@@ -5,7 +5,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
         "IBLOCK_TYPE" => "development",
         "IBLOCK_ID" => "17",
         "ELEMENT_ID" => $_REQUEST["panelId"],
-        "PROPERTY_CODE" => Array("TITLE","NAME_IN_DETAIL","BLOCKS","VIEW_BLOCK"),
+        "PROPERTY_CODE" => Array("TITLE","NAME_IN_DETAIL","BLOCKS","VIEW_BLOCK","PREZA"),
         "SET_TITLE" => "N",
         "SET_CANONICAL_URL" => "N",
         "SET_BROWSER_TITLE" => "N",
