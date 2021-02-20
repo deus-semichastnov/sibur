@@ -2,41 +2,27 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
     die();
 ?>
-<? if (!empty($arResult)): ?>
+<? if (!empty($arResult["ITEMS"])): ?>
+    <?//echo "<pre>"; print_r($arResult["ITEMS"]); echo "</pre>";?>
     <section class="news --section">
         <div class="container">
-            <h3 class="heading-tertiary">новости</h3>
+            <h3 class="heading-tertiary"><?=$arResult["NAME"]?></h3>
             <div class="news__head">
                 <h2 class="heading-secondary">Анонсы событий</h2>
-                <a href="news.html" class="news__all">Все новости</a>
+                <a href="/news/" class="news__all">Все новости</a>
             </div>
 
             <div class="news__content swiper-container">
                 <div class="swiper-wrapper">
-                    <a href="single.html" class="news__item swiper-slide">
-                        <div class="news__img">
-                            <img src="<?=SITE_TEMPLATE_PATH?>/img/news/news-1.png"
-                                 alt="Новая модель организационной деятельности сделала своё дело">
-                        </div>
-                        <div class="news__date">28 Января 2021</div>
-                        <div class="news__name">Новая модель организационной деятельности сделала своё дело</div>
-                    </a>
-                    <a href="single.html" class="news__item swiper-slide">
-                        <div class="news__img">
-                            <img src="<?=SITE_TEMPLATE_PATH?>/img/news/news-2.png"
-                                 alt="Светлый лик правового взаимодействия продолжает удивлять">
-                        </div>
-                        <div class="news__date">1 Февраля 2021</div>
-                        <div class="news__name">Светлый лик правового взаимодействия продолжает удивлять</div>
-                    </a>
-                    <a href="single.html" class="news__item swiper-slide">
-                        <div class="news__img">
-                            <img src="<?=SITE_TEMPLATE_PATH?>/img/news/news-3.png"
-                                 alt="Выбранный нами инновационный путь развеял последние сомнения">
-                        </div>
-                        <div class="news__date">3 Марта 2021</div>
-                        <div class="news__name">Выбранный нами инновационный путь развеял последние сомнения</div>
-                    </a>
+                    <?foreach ($arResult["ITEMS"] as $item):?>
+                        <a href="<?=$item["DETAIL_PAGE_URL"]?>" class="news__item swiper-slide">
+                            <div class="news__img">
+                                <img src="<?=$item["PREVIEW_PICTURE"]["SRC"]?>" alt="<?=$item["NAME"]?>">
+                            </div>
+                            <div class="news__date"><?=$item["DISPLAY_ACTIVE_FROM"]?></div>
+                            <div class="news__name"><?=$item["NAME"]?></div>
+                        </a>
+                    <?endforeach;?>
                 </div>
             </div>
         </div>
