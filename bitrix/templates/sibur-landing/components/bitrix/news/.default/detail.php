@@ -12,6 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
+
 <?$ElementID = $APPLICATION->IncludeComponent(
 	"bitrix:news.detail",
 	"",
@@ -68,7 +69,11 @@ $this->setFrameMode(true);
 	),
 	$component
 );?>
-<?$APPLICATION->IncludeComponent("bitrix:news.list","news_other",Array(
+<?//echo "<pre>"; print_r($arResult); echo "</pre>";?>
+<?//echo "<pre>"; print_r($arParams); echo "</pre>";?>
+<?
+$GLOBALS['arrFilterOtherNews'] = array("!CODE"=>$arResult["VARIABLES"]["ELEMENT_CODE"]);
+$APPLICATION->IncludeComponent("bitrix:news.list","news_other",Array(
         "IBLOCK_TYPE" => "news",
         "IBLOCK_ID" => "18",
         "NEWS_COUNT" => "3",
@@ -89,6 +94,8 @@ $this->setFrameMode(true);
         "ADD_SECTIONS_CHAIN" => "N",
         "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
         "CACHE_TYPE" => "N",
+		"USE_FILTER" => "Y",
+		"FILTER_NAME" => "arrFilterOtherNews",
         "CACHE_TIME" => "3600",
         "CACHE_FILTER" => "Y",
         "CACHE_GROUPS" => "Y",

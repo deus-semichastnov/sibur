@@ -12,84 +12,81 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<div class="news-detail">
-	<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
-		<img
-			class="detail_picture"
-			border="0"
-			src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>"
-			width="<?=$arResult["DETAIL_PICTURE"]["WIDTH"]?>"
-			height="<?=$arResult["DETAIL_PICTURE"]["HEIGHT"]?>"
-			alt="<?=$arResult["DETAIL_PICTURE"]["ALT"]?>"
-			title="<?=$arResult["DETAIL_PICTURE"]["TITLE"]?>"
-			/>
-	<?endif?>
-	<?if($arParams["DISPLAY_DATE"]!="N" && $arResult["DISPLAY_ACTIVE_FROM"]):?>
-		<span class="news-date-time"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></span>
-	<?endif;?>
-	<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
-		<h3><?=$arResult["NAME"]?></h3>
-	<?endif;?>
-	<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && $arResult["FIELDS"]["PREVIEW_TEXT"]):?>
-		<p><?=$arResult["FIELDS"]["PREVIEW_TEXT"];unset($arResult["FIELDS"]["PREVIEW_TEXT"]);?></p>
-	<?endif;?>
-	<?if($arResult["NAV_RESULT"]):?>
-		<?if($arParams["DISPLAY_TOP_PAGER"]):?><?=$arResult["NAV_STRING"]?><br /><?endif;?>
-		<?echo $arResult["NAV_TEXT"];?>
-		<?if($arParams["DISPLAY_BOTTOM_PAGER"]):?><br /><?=$arResult["NAV_STRING"]?><?endif;?>
-	<?elseif($arResult["DETAIL_TEXT"] <> ''):?>
-		<?echo $arResult["DETAIL_TEXT"];?>
-	<?else:?>
-		<?echo $arResult["PREVIEW_TEXT"];?>
-	<?endif?>
-	<div style="clear:both"></div>
-	<br />
-	<?foreach($arResult["FIELDS"] as $code=>$value):
-		if ('PREVIEW_PICTURE' == $code || 'DETAIL_PICTURE' == $code)
-		{
-			?><?=GetMessage("IBLOCK_FIELD_".$code)?>:&nbsp;<?
-			if (!empty($value) && is_array($value))
-			{
-				?><img border="0" src="<?=$value["SRC"]?>" width="<?=$value["WIDTH"]?>" height="<?=$value["HEIGHT"]?>"><?
-			}
-		}
-		else
-		{
-			?><?=GetMessage("IBLOCK_FIELD_".$code)?>:&nbsp;<?=$value;?><?
-		}
-		?><br />
-	<?endforeach;
-	foreach($arResult["DISPLAY_PROPERTIES"] as $pid=>$arProperty):?>
+<?//echo "<pre>"; print_r($arResult); echo "</pre>";?>
+<div class="single">
+    <div class="container">
+        <div class="single__wrap">
+            <a href="#" onclick="javascript:history.back(); return false;" class="single__back">
+                <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.00036 4.82555L11.3567 4.82555M2.00036 4.82555L5.14426 1.68164M2.00036 4.82555L5.14426 7.96946"
+                            stroke="#0F1C29" stroke-width="2" />
+                </svg>
+                Назад
+            </a>
 
-		<?=$arProperty["NAME"]?>:&nbsp;
-		<?if(is_array($arProperty["DISPLAY_VALUE"])):?>
-			<?=implode("&nbsp;/&nbsp;", $arProperty["DISPLAY_VALUE"]);?>
-		<?else:?>
-			<?=$arProperty["DISPLAY_VALUE"];?>
-		<?endif?>
-		<br />
-	<?endforeach;
-	if(array_key_exists("USE_SHARE", $arParams) && $arParams["USE_SHARE"] == "Y")
-	{
-		?>
-		<div class="news-detail-share">
-			<noindex>
-			<?
-			$APPLICATION->IncludeComponent("bitrix:main.share", "", array(
-					"HANDLERS" => $arParams["SHARE_HANDLERS"],
-					"PAGE_URL" => $arResult["~DETAIL_PAGE_URL"],
-					"PAGE_TITLE" => $arResult["~NAME"],
-					"SHORTEN_URL_LOGIN" => $arParams["SHARE_SHORTEN_URL_LOGIN"],
-					"SHORTEN_URL_KEY" => $arParams["SHARE_SHORTEN_URL_KEY"],
-					"HIDE" => $arParams["SHARE_HIDE"],
-				),
-				$component,
-				array("HIDE_ICONS" => "Y")
-			);
-			?>
-			</noindex>
-		</div>
-		<?
-	}
-	?>
+            <div class="single__content">
+                <div class="single__head">
+                    <div class="single__date"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></div>
+                    <h1 class="single__title"><?=$arResult["NAME"]?></h1>
+                    <div class="single__social">
+                        Поделиться
+                        <div class="single__social-wrap">
+                            <a href="#" class="single__social-item">
+                                <svg>
+                                    <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-fb"></use>
+                                </svg>
+                            </a>
+                            <a href="#" class="single__social-item">
+                                <svg>
+                                    <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-vk"></use>
+                                </svg>
+                            </a>
+                            <a href="#" class="single__social-item">
+                                <svg>
+                                    <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-insta"></use>
+                                </svg>
+                            </a>
+                            <a href="#" class="single__social-item">
+                                <svg>
+                                    <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-odnok"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="single__img"><img src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" alt="<?=$arResult["NAME"]?>"></div>
+                <?$APPLICATION->IncludeComponent("bitrix:news.list","news_block",Array(
+                        "IBLOCK_TYPE" => "news",
+                        "IBLOCK_ID" => "20",
+                        "NEWS_COUNT" => "99",
+                        "SORT_BY2" => "ACTIVE_FROM",
+                        "SORT_ORDER2" => "DESC",
+                        "SORT_BY1" => "SORT",
+                        "SORT_ORDER1" => "ASC",
+                        "FILTER_NAME" => "",
+                        "FIELD_CODE" => Array("ID","DETAIL_TEXT"),
+                        "PROPERTY_CODE" => Array("PICS", "QUOTE", "PHOTO_QUOTE", "FIO_QUOTE", "DESC_QUOTE", "TYPE"),
+                        "ACTIVE_DATE_FORMAT"=>"j F Y",
+                        "SET_TITLE" => "N",
+                        "SET_BROWSER_TITLE" => "N",
+                        "SET_META_KEYWORDS" => "N",
+                        "SET_META_DESCRIPTION" => "N",
+                        "SET_LAST_MODIFIED" => "N",
+                        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
+                        "CACHE_TYPE" => "N",
+                        "CACHE_TIME" => "3600",
+                        "CACHE_FILTER" => "Y",
+                        "CACHE_GROUPS" => "Y",
+                        "DISPLAY_TOP_PAGER" => "N",
+                        "DISPLAY_BOTTOM_PAGER" => "N",
+                        "SET_STATUS_404" => "N",
+                        "SHOW_404" => "N",
+                        "MESSAGE_404" => ""
+                    )
+                );?>
+            </div>
+        </div>
+    </div>
 </div>

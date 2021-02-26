@@ -4,151 +4,45 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
 ?>
 <? if (!empty($arResult["ITEMS"])): ?>
     <?//echo "<pre>"; print_r($arResult["ITEMS"]); echo "</pre>";?>
-    <h3 class="single__subtitle">КРИТИЧНЫЕ И НЕКРИТИЧНЫЕ ПРОЦЕССЫ</h3>
-    <p class="single__paragraph">Теперь оператор установки получает всю необходимую для него
-        информацию
-        –
-        параметры температуры, вибрации, показания работоспособности IIoT-датчиков – а также может
-        управлять
-        удалёнными устройствами в удобном веб-интерфейсе, который он может создать сам.</p>
-    <p class="single__paragraph">Нефтехимическая отрасль уже достаточно хорошо автоматизирована –
-        все
-        критичные производственные процессы контролируются с помощью систем АСУТП. При этом остаётся
-        ряд
-        ручных процессов по контролю оборудования, которые необходимо автоматизировать, а также
-        задачи
-        по
-        сбору данных для принятия решений в области управления технологическими процессами.</p>
-    <div class="single__quote">
-        <svg>
-            <use xlink:href="img/sprite-other.svg#icon-quote"></use>
-        </svg>
-        <div class="single__quote-content">
-            <div class="single__quote-text">В нашем случае команда разработки продукта состоит из
-                специалистов в области ИТ и цифровых технологий и профессионалов, имеющих богатый
-                опыт
-                работы на нефтехимическом производстве. Такая комбинаций позволяет разработать и
-                дать
-                пользователям максимально удобный продукт, работающий на достижение целей бизнеса.
+    <?foreach ($arResult["ITEMS"] as $item):?>
+        <?if($item["PROPERTIES"]["TYPE"]["VALUE_XML_ID"] == "text"):?>
+            <h3 class="single__subtitle"><?=$item["NAME"]?></h3>
+            <?=$item["~DETAIL_TEXT"];?>
+        <?endif;?>
+        <?if($item["PROPERTIES"]["TYPE"]["VALUE_XML_ID"] == "slider" && $item["PROPERTIES"]["PICS"]["VALUE"][0]):?>
+            <div class="single__slider swiper-container">
+                <div class="swiper-wrapper">
+                    <?foreach($item["DISPLAY_PROPERTIES"]["PICS"]["FILE_VALUE"] as $file):?>
+                        <div class="swiper-slide single__slider-item">
+                            <img src="<?=$file["SRC"]?>" alt="<?=$file["DESCRIPTION"]?>">
+                        </div>
+                    <?endforeach?>
+                </div>
             </div>
-            <div class="single__quote-person">
-                <img src="img/idea-1.png" alt="Василий Номоконов" class="single__quote-photo">
-                <div class="single__quote-name">
-                    <div class="single__quote-name-n">Василий Номоконов</div>
-                    <div class="single__quote-post">член правления - исполнительный директор СИБУРа
+            <div class="single__slider-pagin"></div>
+        <?endif;?>
+        <?if($item["PROPERTIES"]["TYPE"]["VALUE_XML_ID"] == "quote" && $item["PROPERTIES"]["QUOTE"]["VALUE"]["TEXT"]):?>
+            <div class="single__quote">
+                <svg>
+                    <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#icon-quote"></use>
+                </svg>
+                <div class="single__quote-content">
+                    <div class="single__quote-text"><?=$item["PROPERTIES"]["QUOTE"]["~VALUE"]["TEXT"]?></div>
+                    <div class="single__quote-person">
+                        <?if($item["DISPLAY_PROPERTIES"]["PHOTO_QUOTE"]["FILE_VALUE"]["SRC"]):?>
+                            <img src="<?=$item["DISPLAY_PROPERTIES"]["PHOTO_QUOTE"]["FILE_VALUE"]["SRC"]?>" alt="<?=$item["PROPERTIES"]["FIO_QUOTE"]["VALUE"]?>" class="single__quote-photo">
+                        <?endif;?>
+                        <div class="single__quote-name">
+                            <?if($item["DISPLAY_PROPERTIES"]["FIO_QUOTE"]["VALUE"]):?>
+                                <div class="single__quote-name-n"><?=$item["PROPERTIES"]["FIO_QUOTE"]["VALUE"]?></div>
+                            <?endif;?>
+                            <?if($item["DISPLAY_PROPERTIES"]["FIO_QUOTE"]["VALUE"]):?>
+                                <div class="single__quote-post"><?=$item["PROPERTIES"]["DESC_QUOTE"]["VALUE"]?></div>
+                            <?endif;?>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <h3 class="single__subtitle">СОБСТВЕННАЯ РАЗРАБОТКА</h3>
-    <p class="single__paragraph">Решение о разработке собственного инструмента было принято в связи
-        с
-        тем,
-        что платформы, доступные сейчас на рынке, не соответствуют требованиям и задачам интернета
-        вещей
-        на
-        нефтехимическом предприятии. Для запуска проекта требовалось дооснастить некритичные узлы
-        системами
-        автоматизированного контроля, дать операторам установок без навыков программирования
-        возможность
-        самостоятельно подключать датчики и создавать себе интерфейсы для контроля оборудования. При
-        этом
-        создание и владение платформой собственной разработки оказалась в два раза выгоднее покупки
-        платных
-        аналогов и их доработки. IIoT в СИБУРе базируется на беспроводной сети LoRaWAN, всеми
-        устройствами
-        которой управляет сетевой сервер.</p>
-    <p class="single__paragraph">По словам Александра Леуса, руководителя Индустрии 4.0, одной из
-        основных
-        сложностей, с которой сталкиваются разработчики продуктов такого класса, является острая
-        нехватка
-        обратной связи от пользователей на этапе от создания MVP (минимальный жизнеспособный
-        продукт) до
-        реализации боевого продукта. </p>
-    <div class="single__quote">
-        <svg>
-            <use xlink:href="img/sprite-other.svg#icon-quote"></use>
-        </svg>
-        <div class="single__quote-content">
-            <div class="single__quote-text">В нашем случае команда разработки продукта состоит из
-                специалистов в области ИТ и цифровых технологий и профессионалов, имеющих богатый
-                опыт
-                работы на нефтехимическом производстве. Такая комбинаций позволяет разработать и
-                дать
-                пользователям максимально удобный продукт, работающий на достижение целей бизнеса.
-            </div>
-            <div class="single__quote-person">
-                <img src="img/idea-1.png" alt="Александр Леус" class="single__quote-photo">
-                <div class="single__quote-name">
-                    <div class="single__quote-name-n">Александр Леус</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h3 class="single__subtitle">РАБОТАТЬ С ПЛАТФОРМОЙ - ПРОСТО</h3>
-    <p class="single__paragraph">Освоить новый инструмент можно просто и быстро. Первые пользователи
-        –
-        аппаратчики производства пиролиза «ЗапСибнефтехима» – уже прошли обучение. О том, как
-        работать с
-        IIoT-платформой рассказывает Василий Ежов, владелец продукта по IIoT: «Добавить новый датчик
-        в
-        интерфейс платформы очень просто. Достаточно отсканировать его QR-код вэб-камерой, чтобы
-        подключить
-        его к сети. Вручную номер или другие параметры вбивать не нужно. Дальше аппаратчик берёт
-        требуемую
-        технологическую схему в виде графического файла, загружает её в наш редактор мнемосхем и
-        получает на
-        выходе новую схему, где и размещает датчик, выбирая необходимые границы срабатывания,
-        например,
-        температуру: минимальную и максимальную. Таким образом, сотрудник производства в три шага
-        самостоятельно создаёт интерфейс, с помощью которого будет эксплуатировать систему».</p>
-    <div class="single__slider swiper-container">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide single__slider-item"><img src="img/panel/panel-function-1.png"
-                                                               alt="">
-            </div>
-            <div class="swiper-slide single__slider-item"><img src="img/panel/panel-function-2.png"
-                                                               alt="">
-            </div>
-            <div class="swiper-slide single__slider-item"><img src="img/panel/panel-function-3.png"
-                                                               alt="">
-            </div>
-            <div class="swiper-slide single__slider-item"><img src="img/panel/panel-function-4.png"
-                                                               alt="">
-            </div>
-            <div class="swiper-slide single__slider-item"><img src="img/panel/panel-function-5.png"
-                                                               alt="">
-            </div>
-        </div>
-    </div>
-    <div class="single__slider-pagin"></div>
-    <h3 class="single__subtitle">ПИЛОТНЫЙ КОНТУР И ТИРАЖ</h3>
-    <p class="single__paragraph">
-        Сейчас СИБУР переходит к этапу тиражирования IIoT-решений на своих предприятиях. В пилотном
-        контуре
-        – тобольские предприятия, «Томскнефтехим», «Воронежсинтезкаучук» и «СИБУР Кстово». Периметр
-        тиража и
-        зоны внедрения были определены на основании анализа статистики отказов и матриц рисков по
-        позициям
-        оборудования. «Инструмент направлен на повышение времени полезной работы, эффективности
-        производственных активов и снижение трудозатрат на рутинные операции ручного контроля. При
-        этом
-        для
-        достижения данных результатов необходимо обеспечить высокий уровень вовлеченности линейных
-        сотрудников», – отмечает <span>Владимир Плешков, руководитель по развитию цифровизации
-                                производства.</span>
-    </p>
-    <p class="single__paragraph">
-        Тираж строится на базе реестра бизнес-кейсов и идей использования промышленного интернета
-        вещей,
-        который содержит информацию об актуальных проблемах на производствах, технических решениях и
-        потенциальных эффектах. «Предприятия активно обмениваются опытом – это значительно ускоряет
-        процесс
-        формирования портфеля проектов. Мы учитываем экономические показатели каждого бизнес-кейса,
-        поскольку внедрение промышленного интернета вещей предполагает не только инвестиции в
-        аппаратно-программную часть, но и развитие соответствующей инфраструктуры передачи и
-        обработки
-        данных», – рассказывает <span>Иван Тарасов, менеджер по внедрению проекта.</span>
-    </p>
+        <?endif;?>
+    <?endforeach;?>
 <? endif ?>

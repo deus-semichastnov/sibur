@@ -1,18 +1,194 @@
 $(document).ready(function () {
+    function checkRequired(form) {
+        var error = false;
+        form.find(".required").each(function () {
+            $(this).parents(".popup__group").removeClass("error");
+
+            switch ($(this).attr("type")) {
+                // case "checkbox":
+                //     $(this).parents("label").removeClass("error");
+                //     if ($(this).prop('checked') === false) {
+                //         $(this).parents("label").addClass("error");
+                //         $(this).addClass("error");
+                //         error = true;
+                //     }
+                //     break;
+                // case "file":
+                //     if (!this.files[0]) {
+                //         $(this).addClass("error");
+                //         $(this).next(".form__add-file").addClass("error");
+                //         error = true;
+                //     }
+                //     break;
+                // case "radio":
+                //     error = true;
+                //     $(this).parents(".radio_group").find("input[name=" + $(this).prop("name") + "]").each(function () {
+                //         if ($(this).prop('checked') !== false) {
+                //             error = false;
+                //         }
+                //     });
+                //     if (error) {
+                //         $.fancybox.open($(this).parents(".radio_group").find(".radio_group_title").text());
+                //     }
+                //     break;
+
+                case "text":
+                    if ($(this).val() == "") {
+                        error = true;
+                        $(this).parents(".popup__group").addClass("error");
+                    }
+
+                    // if ($(this).hasClass("input-phone")) {
+                    //     console.log($(this).val().indexOf('_'));
+                    //     if($(this).val().indexOf('_') != -1){
+                    //         error = true;
+                    //         $(this).parents(".popup__group").addClass("error");
+                    //     }
+                    // }
+
+
+                    break;
+            }
+
+        });
+        return error;
+    }
+
+    function checkRules(rules, value, input = false) {
+        var data = [];
+        for (var i = rules.length - 1; i >= 0; i--) {
+            var rule = rules[i].split('-');
+            var mess = "";
+            switch (rule[0]) {
+                case "norus":
+                    if (value.search(/[А-яЁё]/) !== -1) {
+                        mess = "Значение не может содержать русских символов!";
+                        data.push(mess);
+                    }
+                    break;
+                case "int":
+                    if (value.search(/[0-9]/) === -1) {
+                        mess = "Значение может содержать только цифры!";
+                        data.push(mess);
+                    }
+                    break;
+                case "min":
+                    if (value.length < Number(rule[1])) {
+                        mess = "Значение не может быть меньше " + rule[1] + " символов!";
+                        data.push(mess);
+                    }
+                    break;
+                case "max":
+                    if (value.length > Number(rule[1])) {
+                        mess = "Значение не может привышать " + rule[1] + " символов!";
+                        data.push(mess);
+                    }
+                    break;
+                case "phone":
+                    if (value.indexOf('_') != -1) {
+                        mess = "Не корректный телефон";
+                        data.push(mess);
+                    }
+                    break;
+                case "email":
+                    if (value.indexOf('@') == -1 || value.indexOf('.') == -1) {
+                        mess = "Не корректный email";
+                        data.push(mess);
+                    }
+                    break;
+                default:
+                    if (value == "") {
+                        mess = "Необходимо ввести значение!";
+                        data.push(mess);
+                    }
+            }
+        }
+        return data;
+    }
+
+    function checkRulesInput(form) {
+        var error = false;
+        form.find("[data-rule-input]").each(function () {
+            if (!$(this).parents(".popup__group").hasClass("error")) {
+                var rules = $(this).data("rule-input").split(',');
+                var inputVal = $(this).val();
+                var dataError = checkRules(rules, inputVal, $(this));
+                if (dataError.length > 0) {
+                    $(this).parents(".popup__group").addClass("error");
+                    error = true;
+                }
+            }
+        });
+        return error;
+    }
+
+    function formValid(form) {
+        var valid = false;
+        var chReq = checkRequired(form);
+        var chRules = checkRulesInput(form);
+        if (!chRules && !chReq) {
+            valid = true;
+        }
+        return valid;
+    }
     // Отправка формы
     $('.popup__btn').on('click', function (e) {
         e.preventDefault();
         let form = $(this).parents("form");
-
-        $.ajax({
-            success: function () {
-                form.hide();
-                $('.popup .fancybox-close-small').hide();
-                form.siblings('.popup__success').show();
-            }
-        });
+        console.log(form.find("input[name=consent]").is(':checked'));
+        if(formValid(form) && form.find("input[name=consent]").is(':checked')){
+            var formData = new FormData();
+            var form_data = $("#quest form *").serializeArray();
+            $.each(form_data, function (key, input) {
+                formData.append(input.name, input.value);
+            });
+            $("#quest form input[type=file]").each(function () {
+                var file_data = $(this)[0].files;
+                for (var i = 0; i < file_data.length; i++) {
+                    formData.append($(this).attr("name"), file_data[i]);
+                }
+            });
+            //var formData = form.serialize();
+            $.ajax( {
+                type: "POST",
+                url: "/ajax/send-form.php",
+                processData: false,
+                contentType: false,
+                data: formData,
+                async: false,
+                success: function( response ) {
+                    console.log(response);
+                    if(response.trim() == "send"){
+                        form.hide();
+                        $('.popup .fancybox-close-small').hide();
+                        form.siblings('.popup__success').show();
+                    }
+                }
+            });
+        }
     });
-
+    $("html body").on("click", ".popup__document-name", function(){
+        var box = $(this).parents(".popup__document");
+        var fileInput = $(this).siblings("input");
+        if(fileInput.length>1){
+            fileInput = fileInput[fileInput.length-1];
+            $(fileInput).click();
+        }else{
+            fileInput.click();
+        }
+    });
+    $("html body").on("input", ".hidden-input-file", function(){
+        var box = $(this).parents(".popup__group");
+        var fileName = this.files[0]["name"];
+        var newInput = $(this).clone();
+        var numFile = Number(newInput.attr("data-num-file"))+1;
+        newInput.attr("name", "file["+numFile+"]");
+        newInput.attr("data-num-file", numFile);
+        newInput.attr("value", "");
+        newInput.val(null);
+        $(this).after(newInput);
+        box.find(".popup__document:last-child").before('<div class="popup__document --loaded" data-num-input="'+newInput.data("num-file")+'"><div class="popup__document-icon"></div> <div class="popup__document-name">'+fileName+'</div></div>');
+    });
     $('.popup__success-close').on('click', function () {
         $.fancybox.close();
     });

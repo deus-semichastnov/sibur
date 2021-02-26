@@ -4,24 +4,36 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
 ?>
 <? if (!empty($arResult)): ?>
     <div class="idea__wrap">
-        <?foreach ($arResult["ITEMS"] as $item):?>
-            <div class="idea__elem">
+        <?foreach ($arResult["ITEMS"] as $key => $item):?>
+            <?$dopClass = "";
+            if($key == 0){
+                $dopClass = "--shift-down";
+            }
+            if(!isset($arResult["ITEMS"][$key+1])){
+                $dopClass = "about";
+            }?>
+
+            <div class="idea__elem <?=$dopClass?>" <?if($item["CODE"] != ""):?>id="<?=$item["CODE"]?>"<?endif;?>>
                 <h3 class="heading-tertiary"><?=$item["NAME"]?></h3>
                 <h2 class="heading-secondary"><?=$item["DISPLAY_PROPERTIES"]["TITLE_BLOCK"]["VALUE"]?></h2>
-                <div class="idea__descr"><?=$item["DISPLAY_PROPERTIES"]["TEXT_BLOCK"]["VALUE"]["TEXT"]?></div>
-                <div class="idea__picture">
-                    <h4 class="heading-quaternary"><?=$arResult["DISPLAY_PROPERTIES"]["NEXT_BLOCK"]["VALUE"]?></h4>
-                    <?if($item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["ID"]):?>
-                        <div class="idea__picture-wrap">
-                            <div class="idea__picture-img">
-                                <img src="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["SRC"]?>" alt="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["DESCRIPTION"]?>">
+                <?if($item["DISPLAY_PROPERTIES"]["TEXT_BLOCK"]["VALUE"]["TEXT"] != ""):?>
+                    <div class="idea__descr"><?=$item["DISPLAY_PROPERTIES"]["TEXT_BLOCK"]["VALUE"]["TEXT"]?></div>
+                <?endif;?>
+                <?if($arResult["DISPLAY_PROPERTIES"]["NEXT_BLOCK"]["VALUE"] != "" || $item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["ID"]):?>
+                    <div class="idea__picture">
+                        <h4 class="heading-quaternary"><?=$arResult["DISPLAY_PROPERTIES"]["NEXT_BLOCK"]["VALUE"]?></h4>
+                        <?if($item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["ID"]):?>
+                            <div class="idea__picture-wrap">
+                                <div class="idea__picture-img">
+                                    <img src="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["SRC"]?>" alt="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["DESCRIPTION"]?>">
+                                </div>
+                                <div class="idea__picture-img --bg rellax">
+                                    <img src="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][1]["SRC"]?>" alt="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][1]["DESCRIPTION"]?>">
+                                </div>
                             </div>
-                            <div class="idea__picture-img --bg rellax">
-                                <img src="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][1]["SRC"]?>" alt="<?=$item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][1]["DESCRIPTION"]?>">
-                            </div>
-                        </div>
-                    <?endif;?>
-                </div>
+                        <?endif;?>
+                    </div>
+                <?endif;?>
                 <?if($item["DISPLAY_PROPERTIES"]["BENEFITS"]["VALUE"]["TEXT"] != ""):?>
                     <div class="idea__a">
                         <?=$item["DISPLAY_PROPERTIES"]["BENEFITS"]["~VALUE"]["TEXT"];?>

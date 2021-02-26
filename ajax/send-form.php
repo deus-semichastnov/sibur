@@ -1,103 +1,78 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 if(CModule::IncludeModule('iblock')){
-    if(isset($_REQUEST["tildaspec-projectid"]) && !empty($_REQUEST["tildaspec-projectid"])){
-        $arEventFields = array(
-            "NAME"  => $_REQUEST["Name"],
-            "PHONE" => $_REQUEST["Phone"],
-            "EMAIL" => $_REQUEST["Email"],
-            "THEME" => 'Заявка с раздела '.$_REQUEST['Discount'],
-            "EMAIL_TO" => "marketing@skolkovo.realty"
-        );
-        if($arEventFields['PHONE']) {
-            $sendTpl = "SKOLKOVO_FEEDBACK";
-//			print_r(json_encode($_REQUEST));
-            if ( CEvent::Send( $sendTpl, "s1", $arEventFields ) ) {
-                echo json_encode(array('results'=>array('1:форма успешно отправлена')));
-            }
-        }
-    }else{
-        $name = $_GET["name"];
-        if(isset($_GET["name"])){
-            $name = $_GET["name"];
-        }else{
-            $name = $_GET["phone"];
-        }
-        if(isset($_GET["mail"])){
-            $mail = $_GET["mail"];
-        }else{
-            $mail = $_GET["phone"];
-        }
-        $arEventFields = array(
-            "NAME"  => $_GET["name"],
-            "EMAIL" => $_GET["mail"],
-            "PHONE" => $_GET["phone"],
-            "THEME" => $_GET["theme"],
-            "EMAIL_TO" => "marketing@skolkovo.realty"
-        );
-        if(stristr($_GET["theme"],'каталог')){
-            //$arEventFields['EMAIL_TO'] = 'sales@xn--80apijy7dta.xn--80adxhks';
-            $arEventFields['EMAIL_TO'] = 'marketing@skolkovo.realty';
-        }
-        //echo "<pre>"; print_r($_GET); echo "</pre>";
-        if(isset($_GET["price"])){
-            $arEventFields["PRICE"] = $_GET["price"];
-        }
-        if(isset($_GET["country"])){
-            $arEventFields["COUNTRY"] = "Страна: ".$_GET["country"];
-        }
-        $sendTpl = "SKOLKOVO_FEEDBACK";
-        if(isset($_GET["sendTpl"]) && $_GET["sendTpl"] != ""){
-            $sendTpl = $_GET["sendTpl"];
-        }
-        $recIb = "18";
-        $pt = "";
-        $arPTFields = array(
-            "18" => array(
-                "phone" => "Телефон",
-                "country" => "Страна",
-            ),
-            "20" => array(
-                "name" => "Имя",
-                "phone" => "Телефон",
-                "price" => "Моя цена",
-            ),
-        );
+    $recIb = "21";
+    $arLoadProductArrayData = array(
+        "MODIFIED_BY"       => 1,
+        "IBLOCK_SECTION_ID" => false,
+        "IBLOCK_ID"         => $recIb,
+        "ACTIVE"            => "Y",
+    );
+    $arLoadProductArray = array_merge($arLoadProductArrayData, $_REQUEST["FIELDS"]);
+    $arLoadProductArray["PROPERTY_VALUES"] = $_REQUEST["PROPERTY"];
+    if(!empty($_FILES)){
+        //$arRasFiles = array("doc","pdf","jpg","jpeg","png");
+        $arLoadProps = false;
+        foreach ($_FILES["file"] as $keyb => $valueb) {
+            if(is_array($valueb)){
+                foreach ($valueb as $keye => $valuee) {
+//                                if($keyd == "name"){
+//                                    $ras = getExtension($valuee);
+//                                    $arResult["ras"][] = $valuee;
+//                                    $ras = strtolower($ras);
+//                                    if(!in_array($ras, $arRasFiles)){
+//                                        echo json_encode(array("denied_extension_file"=>$ras));
+//                                        die();
+//                                    }
+//                                }
+                    $arLoadProductArray["PROPERTY_VALUES"]["FILES"][$keye][$keyb] = $valuee;
 
-        if(isset($_GET["recIb"]) && $_GET["recIb"] != ""){
-            $recIb = $_GET["recIb"];
-        }
-        if(isset($arPTFields[$recIb])){
-            foreach ($arPTFields[$recIb] as $key => $value) {
-                if(isset($_GET[$key])){
-                    $pt .= $value.": ".$_GET[$key]."\n";
                 }
-            }
-        }else{
-            $pt = $_GET["phone"];
-        }
-        if($arEventFields['PHONE']) {
-            if ( CEvent::Send( $sendTpl, "s1", $arEventFields ) ) {
-                $el = new CIBlockElement;
-
-                $arLoadProductArray = array(
-                    "MODIFIED_BY"       => 1,
-                    "IBLOCK_SECTION_ID" => false,
-                    "IBLOCK_ID"         => $recIb,
-                    "NAME"              => $name,
-                    "ACTIVE"            => "Y",
-                    "CODE"              => $mail,
-                    "PREVIEW_TEXT"      => $pt,
-                );
-                if ( $el->Add( $arLoadProductArray ) ) {
-                    echo "send";
-                }
-
+            }else{
+//                            if($keyd == "name"){
+//                                $ras = getExtension($valuec);
+//                                $arResult["ras"][] = $valuec;
+//                                $ras = strtolower($ras);
+//                                if(!in_array($ras, $arRasFiles)){
+//                                    echo json_encode(array("denied_extension_file"=>$ras));
+//                                    die();
+//                                }
+//                            }
+                $arLoadProductArray["PROPERTY_VALUES"]["FILES"][][$keyb] = $valueb;
             }
         }
     }
-
-
+    $arEventFields = array_merge($_REQUEST["FIELDS"],$_REQUEST["PROPERTY"]);
+    if($_REQUEST["PROPERTY"]["STAGE"]) {
+        $property_enums = CIBlockPropertyEnum::GetList(array(), array("IBLOCK_ID" => $recIb, "CODE" => "STAGE"));
+        while ($enum_fields = $property_enums->GetNext()) {
+            if (is_array($_REQUEST["PROPERTY"]["STAGE"]) && in_array($enum_fields["ID"], $_REQUEST["PROPERTY"]["STAGE"])) {
+                $stageData[] = $enum_fields["VALUE"];
+            }
+            if(!is_array($_REQUEST["PROPERTY"]["STAGE"]) && $enum_fields["ID"] == $_REQUEST["PROPERTY"]["STAGE"]){
+                $stageData[] = $enum_fields["VALUE"];
+            }
+        }
+        $arEventFields["STAGE"] = "";
+        if($stageData){
+            foreach ($stageData as $item) {
+                $arEventFields["STAGE"] .= $item."<br>";
+            }
+        }
+    }
+    $arEventFields["EMAIL_TO"] = "e.semichastnov@web-hands.ru";
+    $sendTpl = "FEEDBACK";
+    if(isset($_GET["sendTpl"]) && $_GET["sendTpl"] != ""){
+        $sendTpl = $_GET["sendTpl"];
+    }
+    if ( CEvent::Send( $sendTpl, "s1", $arEventFields ) ) {
+        $el = new CIBlockElement;
+        if ( $el->Add( $arLoadProductArray ) ) {
+            echo "send";
+        }
+    }
+//    echo "<pre>"; print_r($arLoadProductArray); echo "</pre>";
+//    echo "<pre>"; print_r($arEventFields); echo "</pre>";
 }
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
 ?>

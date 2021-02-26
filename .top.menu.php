@@ -1,69 +1,60 @@
 <?
-
-/*<a href="#idea" class="header__nav-link">Идея</a>
-            <a href="#about" class="header__nav-link">О центре</a>
-            <a href="#why" class="header__nav-link">Зачем?</a>
-            <a href="#demand" class="header__nav-link">Требования</a>
-            <a href="#cases" class="header__nav-link">Кейсы</a>
-            <a href="#development" class="header__nav-link">Разработки</a>
-            <a href="#news" class="header__nav-link">Новости</a>
-            <a href="#footer" class="header__nav-link">Контакты</a>*/
 $aMenuLinks = Array(
 	Array(
-		"Идея",
-		"#idea",
+		"Идея", 
+		"/",
 		Array(), 
-		Array(), 
+		Array("data"=>"#idea"),
 		"" 
 	),
 	Array(
-		"О центре",
-		"#about",
+		"О центре", 
+		"/",
 		Array(), 
-		Array(), 
+		Array("data"=>"#about"),
 		"" 
 	),
 	Array(
-		"Зачем?",
-		"#why",
+		"Зачем?", 
+		"/",
 		Array(), 
-		Array(), 
+		Array("data"=>"#why"),
 		"" 
 	),
 	Array(
-		"Требования",
-		"#demand",
+		"Требования", 
+		"/",
 		Array(), 
-		Array(), 
+		Array("data"=>"#demand"),
 		"" 
 	),
 	Array(
-		"Кейсы",
-		"#cases",
+		"Кейсы", 
+		"/",
 		Array(), 
-		Array(), 
+		Array("data"=>"#cases"),
 		"" 
 	),
 	Array(
-		"Разработки",
-		"#development",
+		"Разработки", 
+		"/",
 		Array(), 
-		Array(), 
+		Array("data"=>"#development"),
 		"" 
 	),
-    Array(
-        "Новости",
-        "#news",
-        Array(),
-        Array(),
-        ""
-    ),Array(
-        "Контакты",
-        "#footer",
-        Array(),
-        Array(),
-        ""
-    ),
-	
+	Array(
+		"Новости", 
+		"/news/", 
+		Array(), 
+		Array("data"=>"#news"),
+		"" 
+	),
+	Array(
+		"Контакты", 
+		"/",
+		Array(), 
+		Array("data"=>"#footer"),
+		"" 
+	)
 );
 ?>

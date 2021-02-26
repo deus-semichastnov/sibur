@@ -41,56 +41,55 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
                                     <?
                                     $num = 0;
                                     foreach ($arGroupCases as $group):?>
-                                        <div class="swiper-slide">
-                                            <?foreach ($group as $case):?>
-                                                <?
-                                                $active = "";
-                                                if($num==0){
-                                                    $active = " active";
-                                                }?>
-                                                <div class="cases__slider-item<?=$active?>" data-item="<?=$num?>">
-                                                    <div class="cases__slider-check"></div>
-                                                    <div class="cases__slider-text">
-                                                        <div class="cases__slider-num">Кейс №<?=$num+1?></div>
-                                                        <div class="cases__slider-descr"><?=$case["FIELDS"]["NAME"]?></div>
-                                                    </div>
+                                        <?foreach ($group as $case):?>
+                                            <?
+                                            $active = "";
+                                            if($num==0){
+                                                $active = " active";
+                                            }?>
+                                            <div class="swiper-slide cases__slider-item<?=$active?>" data-item="<?=$num?>">
+                                                <div class="cases__slider-check"></div>
+                                                <div class="cases__slider-text">
+                                                    <div class="cases__slider-num">Кейс №<?=$num+1?></div>
+                                                    <div class="cases__slider-descr"><?=$case["FIELDS"]["NAME"]?></div>
                                                 </div>
-                                                <?$num++;?>
-                                            <?endforeach;?>
-                                        </div>
+                                            </div>
+                                            <?$num++;?>
+                                        <?endforeach;?>
                                     <?endforeach;?>
                                 </div>
                             </div>
-
-                            <div class="cases__slider-nav">
-                                <div class="cases__slider-prev">
-                                    <svg width="40" height="41" viewBox="0 0 40 41" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <circle r="19.3174" transform="matrix(-1 0 0 1 19.9853 20.263)"
-                                                stroke="#DBDDDF" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M17.1832 15.9177L12.8384 20.2625L17.1832 24.6072L18.1355 23.6548L15.4166 20.9359H27.1328V19.589H15.4166L18.1355 16.8701L17.1832 15.9177Z"
-                                              fill="white" />
-                                    </svg>
+                            <?if(count($arCases)>3):?>
+                                <div class="cases__slider-nav">
+                                    <div class="cases__slider-prev">
+                                        <svg width="40" height="41" viewBox="0 0 40 41" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <circle r="19.3174" transform="matrix(-1 0 0 1 19.9853 20.263)"
+                                                    stroke="#DBDDDF" />
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M17.1832 15.9177L12.8384 20.2625L17.1832 24.6072L18.1355 23.6548L15.4166 20.9359H27.1328V19.589H15.4166L18.1355 16.8701L17.1832 15.9177Z"
+                                                  fill="white" />
+                                        </svg>
+                                    </div>
+                                    <div class="cases__slider-amount"><span class="current">3</span> из <span
+                                                class="total"><?=count($arCases)?></span> кейсов</div>
+                                    <div class="cases__slider-next">
+                                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="20.4239" cy="20.3958" r="19.3174" stroke="#DBDDDF" />
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M23.2265 16.0505L27.5713 20.3953L23.2265 24.74L22.2741 23.7877L24.9931 21.0687H13.2769V19.7219H24.9931L22.2741 17.0029L23.2265 16.0505Z"
+                                                  fill="white" />
+                                        </svg>
+                                    </div>
                                 </div>
-                                <div class="cases__slider-amount"><span class="current">3</span> из <span
-                                            class="total">9</span> кейсов</div>
-                                <div class="cases__slider-next">
-                                    <svg width="41" height="41" viewBox="0 0 41 41" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="20.4239" cy="20.3958" r="19.3174" stroke="#DBDDDF" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M23.2265 16.0505L27.5713 20.3953L23.2265 24.74L22.2741 23.7877L24.9931 21.0687H13.2769V19.7219H24.9931L22.2741 17.0029L23.2265 16.0505Z"
-                                              fill="white" />
-                                    </svg>
-                                </div>
-                            </div>
+                            <?endif;?>
                             <?=$arResult["DETAIL_TEXT"]?>
                         </div>
                         <div class="cases__c --cases">
-                            <div class="cases__dummy default active-1"></div>
-                            <div class="cases__dummy default active-2"></div>
-                            <div class="cases__dummy active-3"></div>
+                                <div class="cases__dummy default active-1"></div>
+                                <div class="cases__dummy default active-2"></div>
+                                <div class="cases__dummy active-3"></div>
                             <?
                             $num = 0;
                             foreach ($arCases as $case):?>
@@ -107,7 +106,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
                                     <div class="cases__item-title"><?=$case["PROPS"]["TARGET"]["VALUE"]?></div>
                                     <div class="cases__item-list">
                                         <?foreach($case["PROPS"]["TASKS"]["VALUE"] as $key => $task):?>
-                                            <div class="cases__item-list-item"><span><?$key+1?>.</span><?=$task?></div>
+                                            <div class="cases__item-list-item"><span><?=$key+1?>.</span><?=$task?></div>
                                         <?endforeach;?>
                                     </div>
                                     <div class="cases__item-text"><?=$case["FIELDS"]["PREVIEW_TEXT"]?></div>
