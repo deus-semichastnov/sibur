@@ -1,3 +1,5 @@
 <?
-$MESS["CT_BNL_ELEMENT_DELETE_CONFIRM"] = "Будет удалена вся информация, связанная с этой записью. Продолжить?";
+$MESS ['EVENT_ANNOUNCEMENTS'] = "Анонсы событий";
+$MESS ['NOT_NEWS'] = "Новостей нет.";
+$MESS ['READ'] = "Читать";
 ?>
