@@ -18,7 +18,7 @@
                     <div class="cases__item">
                         <div class="cases__item-text">У Вас есть идеи или новый продукт? Подайте заявку уже
                             сейчас и мы обязательно с Вами свяжемся</div>
-                        <a href="#quest" class="btn --white fancybox-link">
+                        <a href="#quest" class="btn --white fancybox-link-quest" data-variant="1">
                             Подать заявку
                             <div class="btn__plus">
                                 <div class="btn__plus-round"></div>
