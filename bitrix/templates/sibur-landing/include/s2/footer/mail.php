@@ -1,0 +1,1 @@
+<a href="mailto:innovation-center@sibur.ru" class="footer__mail">innovation-center@sibur.ru</a>
