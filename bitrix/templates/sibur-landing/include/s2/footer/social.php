@@ -1,5 +1,5 @@
 <div class="footer__social">
-    Подписывайтесь
+    Subscribe
     <div class="footer__social-wrap">
         <a href="#" class="footer__social-item">
             <svg>

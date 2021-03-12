@@ -71,11 +71,17 @@ $this->setFrameMode(true);
 );?>
 <?//echo "<pre>"; print_r($arResult); echo "</pre>";?>
 <?//echo "<pre>"; print_r($arParams); echo "</pre>";?>
+<?$ib = 18;
+$ib_type = "news";
+if(SITE_ID == "s2"){
+	$ib = 25;
+	$ib_type = "news_en";
+}?>
 <?
 $GLOBALS['arrFilterOtherNews'] = array("!CODE"=>$arResult["VARIABLES"]["ELEMENT_CODE"]);
 $APPLICATION->IncludeComponent("bitrix:news.list","news_other",Array(
-        "IBLOCK_TYPE" => "news",
-        "IBLOCK_ID" => "18",
+        "IBLOCK_TYPE" => $ib_type,
+        "IBLOCK_ID" => $ib,
         "NEWS_COUNT" => "3",
         "SORT_BY1" => "ACTIVE_FROM",
         "SORT_ORDER1" => "DESC",
@@ -83,7 +89,7 @@ $APPLICATION->IncludeComponent("bitrix:news.list","news_other",Array(
         "SORT_ORDER2" => "ASC",
         "FILTER_NAME" => "",
         "FIELD_CODE" => Array("ID"),
-        "PROPERTY_CODE" => Array(),
+        "PROPERTY_CODE" => Array("NEWS_BLOCKS"),
         "ACTIVE_DATE_FORMAT"=>"j F Y",
         "SET_TITLE" => "N",
         "SET_BROWSER_TITLE" => "N",

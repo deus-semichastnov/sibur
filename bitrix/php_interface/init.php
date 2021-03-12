@@ -13,9 +13,14 @@
                 "PROPERTY_ACTIVE_SLIDE",
                 "DETAIL_TEXT",
                 "PREVIEW_TEXT",
-                "PROPERTY_PIC"
+                "PROPERTY_PIC",
+                "PROPERTY_FORM_VARIANT"
             );
-            $arFilter = Array("IBLOCK_ID"=>11, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "IBLOCK_SECTION_ID"=>$section_id);
+            $ib = 11;
+            if(SITE_ID == "s2"){
+                $ib = 27;
+            }
+            $arFilter = Array("IBLOCK_ID"=>$ib, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "IBLOCK_SECTION_ID"=>$section_id);
             $res = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, $arSelect);
             while($ob = $res->Fetch())
             {
@@ -39,7 +44,11 @@
                 "PROPERTY_TASKS",
                 "PREVIEW_TEXT"
             );
-            $arFilter = Array("IBLOCK_ID"=>15, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "IBLOCK_SECTION_ID"=>$section_id);
+            $ib = 15;
+            if(SITE_ID == "s2"){
+                $ib = 22;
+            }
+            $arFilter = Array("IBLOCK_ID"=>$ib, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "IBLOCK_SECTION_ID"=>$section_id);
             //echo "<pre>"; print_r($arFilter); echo "</pre>";
             $res = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, $arSelect);
             while($ob = $res->GetNextElement())

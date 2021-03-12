@@ -21,7 +21,7 @@ $this->setFrameMode(true);
                     <path d="M2.00036 4.82555L11.3567 4.82555M2.00036 4.82555L5.14426 1.68164M2.00036 4.82555L5.14426 7.96946"
                             stroke="#0F1C29" stroke-width="2" />
                 </svg>
-                Назад
+                <?=GetMessage("BACK")?>
             </a>
 
             <div class="single__content">
@@ -29,14 +29,19 @@ $this->setFrameMode(true);
                     <div class="single__date"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></div>
                     <h1 class="single__title"><?=$arResult["NAME"]?></h1>
                     <div class="single__social">
-                        Поделиться
-                        <div class="single__social-wrap">
-                            <a href="#" class="single__social-item">
+                        <?=GetMessage("SHARE")?>
+                        <script src="https://yastatic.net/share2/share.js"></script>
+                        <div class="ya-share2" data-curtain data-color-scheme="whiteblack" data-services="vkontakte,facebook,odnoklassniki"></div>
+                        <?/*<div class="single__social-wrap">
+                            <?$CURRENT_PAGE = (CMain::IsHTTPS()) ? "https://" : "http://";
+                            $CURRENT_PAGE .= $_SERVER["HTTP_HOST"];
+                            $CURRENT_PAGE .= $APPLICATION->GetCurUri();?>
+                            <a href="http://www.facebook.com/sharer.php?s=100&p[url]=<?=$CURRENT_PAGE?>" class="single__social-item">
                                 <svg>
                                     <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-fb"></use>
                                 </svg>
                             </a>
-                            <a href="#" class="single__social-item">
+                            <a href="https://vk.com/share.php?url=<?=$CURRENT_PAGE?>" target="_blank" class="single__social-item">
                                 <svg>
                                     <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-vk"></use>
                                 </svg>
@@ -46,22 +51,29 @@ $this->setFrameMode(true);
                                     <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-insta"></use>
                                 </svg>
                             </a>
-                            <a href="#" class="single__social-item">
+                            <a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=$CURRENT_PAGE?>" class="single__social-item">
                                 <svg>
                                     <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-social.svg#social-odnok"></use>
                                 </svg>
                             </a>
-                        </div>
+                        </div>*/?>
                     </div>
                 </div>
                 <div class="single__img"><img src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" alt="<?=$arResult["NAME"]?>"></div>
+                <?$ib = 20;
+                $ib_type = "news";
+                if(SITE_ID == "s2"){
+                    $ib = 26;
+                    $ib_type = "news_en";
+                }?>
                 <?$APPLICATION->IncludeComponent("bitrix:news.list","news_block",Array(
-                        "IBLOCK_TYPE" => "news",
-                        "IBLOCK_ID" => "20",
+                        "IBLOCK_TYPE" => $ib_type,
+                        "IBLOCK_ID" => $ib,
                         "NEWS_COUNT" => "99",
                         "SORT_BY2" => "ACTIVE_FROM",
                         "SORT_ORDER2" => "DESC",
                         "SORT_BY1" => "SORT",
+                        "PARENT_SECTION" => $arResult["PROPERTIES"]["NEWS_BLOCKS"]["VALUE"],
                         "SORT_ORDER1" => "ASC",
                         "FILTER_NAME" => "",
                         "FIELD_CODE" => Array("ID","DETAIL_TEXT"),

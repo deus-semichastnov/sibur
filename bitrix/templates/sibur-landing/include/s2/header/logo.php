@@ -1,1 +1,1 @@
-<img src="<?=SITE_TEMPLATE_PATH?>/img/logo.svg" alt="СИБУР">
+<img src="/include/img/sibur-logo.png" alt="Sibur">

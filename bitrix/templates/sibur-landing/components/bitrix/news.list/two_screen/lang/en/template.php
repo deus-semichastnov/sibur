@@ -1,3 +1,3 @@
 <?
-$MESS ['NEXT_BLOCK'] = "• Зачем";
+$MESS ['NEXT_BLOCK'] = "• Who";
 ?>

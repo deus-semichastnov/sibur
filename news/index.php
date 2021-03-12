@@ -51,7 +51,7 @@ $APPLICATION->SetTitle("Новости");
 		),
 		"LIST_PROPERTY_CODE" => array(
 			0 => "FORUM_MESSAGE_CNT",
-			1 => "",
+			1 => "NEWS_BLOCKS",
 		),
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"DISPLAY_NAME" => "N",

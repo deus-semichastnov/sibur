@@ -21,19 +21,21 @@ IncludeTemplateLangFile(__FILE__);
     <!-- Custom styles -->
     <? $APPLICATION->SetAdditionalCSS(SITE_TEMPLATE_PATH . "/css/style.css"); ?>
     <!-- Jquery-->
-    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/jquery-3.5.1.min.js"); ?>
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/libs/jquery-3.5.1.min.js"); ?>
     <!-- Fancybox-->
-    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/jquery.fancybox.min.js"); ?>
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/libs/jquery.fancybox.min.js"); ?>
     <!-- Swiper-->
-    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/swiper.min.js"); ?>
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/libs/swiper.min.js"); ?>
     <!-- InputMask-->
-    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/jquery.inputmask.js"); ?>
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/libs/jquery.inputmask.js"); ?>
     <!-- RELLAX -->
-    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/rellax.min.js"); ?>
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/libs/rellax.min.js"); ?>
+    <!-- AOS -->
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/libs/aos.js"); ?>
     <!-- WOWjs -->
-    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/wow.min.js"); ?>
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/libs/wow.min.js"); ?>
     <!-- Three.js-->
-    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/three.js"); ?>
+    <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/libs/three.js"); ?>
     <!-- CUSTOM -->
     <? $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH . "/js/scripts.js"); ?>
 </head>
@@ -48,7 +50,7 @@ IncludeTemplateLangFile(__FILE__);
                 array(
                     "COMPONENT_TEMPLATE" => ".default",
                     "AREA_FILE_SHOW" => "file",
-                    "PATH" => SITE_TEMPLATE_PATH."/include/header/logo.php",
+                    "PATH" => SITE_TEMPLATE_PATH."/include/".SITE_ID."/header/logo.php",
                     "EDIT_TEMPLATE" => ""
                 ),
                 false
@@ -68,9 +70,28 @@ IncludeTemplateLangFile(__FILE__);
                 "MENU_CACHE_GET_VARS" => ""
             )
         ); ?>
-
-        <a href="#" class="header__language">En</a>
-        <a href="#quest" class="header__btn">Оставить заявку</a>
+        <?$APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            ".default",
+            array(
+                "COMPONENT_TEMPLATE" => ".default",
+                "AREA_FILE_SHOW" => "file",
+                "PATH" => SITE_TEMPLATE_PATH."/include/".SITE_ID."/header/language.php",
+                "EDIT_TEMPLATE" => ""
+            ),
+            false
+        );?>
+        <?$APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            ".default",
+            array(
+                "COMPONENT_TEMPLATE" => ".default",
+                "AREA_FILE_SHOW" => "file",
+                "PATH" => SITE_TEMPLATE_PATH."/include/".SITE_ID."/header/btn_form_1.php",
+                "EDIT_TEMPLATE" => ""
+            ),
+            false
+        );?>
     </header>
 	<div id="panel"><?$APPLICATION->ShowPanel();?></div>
 	

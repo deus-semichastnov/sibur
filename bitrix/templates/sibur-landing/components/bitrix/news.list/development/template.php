@@ -22,7 +22,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
                     <div class="develop__name"><?=$item["PROPERTIES"]["TITLE"]["VALUE"]?></div>
                     <div class="develop__text-descr"><?=$item["PREVIEW_TEXT"]?></div>
                     <div class="btn --green" data-link="panel--<?=$item["ID"]?>" data-panel-id="<?=$item["ID"]?>">
-                        Все характеристи
+                        <?=GetMessage("ALL_CHARACTERISTICS")?>
                         <div class="btn__plus">
                             <div class="btn__plus-round"></div>
                             <div class="btn__plus-p"></div>

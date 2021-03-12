@@ -9,19 +9,22 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
             if($key == 0){
                 $dopClass = "--shift-down";
             }
+            if($key == 1){
+                $dopClass = "section";
+            }
             if(!isset($arResult["ITEMS"][$key+1])){
-                $dopClass = "about";
+                $dopClass = "about section";
             }?>
 
-            <div class="idea__elem <?=$dopClass?>" <?if($item["CODE"] != ""):?>id="<?=$item["CODE"]?>"<?endif;?>>
-                <h3 class="heading-tertiary"><?=$item["NAME"]?></h3>
-                <h2 class="heading-secondary"><?=$item["DISPLAY_PROPERTIES"]["TITLE_BLOCK"]["VALUE"]?></h2>
+            <div class="idea__elem <?=$dopClass?>" <?if($item["CODE"] != ""):?>id="<?=$item["CODE"]?>"data-href="<?=$item["CODE"]?>"<?endif;?>>
+                <h3 class="heading-tertiary" data-aos="fade-up" data-aos-duration="1500"><?=$item["NAME"]?></h3>
+                <h2 class="heading-secondary" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100"><?=$item["DISPLAY_PROPERTIES"]["TITLE_BLOCK"]["VALUE"]?></h2>
                 <?if($item["DISPLAY_PROPERTIES"]["TEXT_BLOCK"]["VALUE"]["TEXT"] != ""):?>
-                    <div class="idea__descr"><?=$item["DISPLAY_PROPERTIES"]["TEXT_BLOCK"]["VALUE"]["TEXT"]?></div>
+                    <div class="idea__descr" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200"><?=$item["DISPLAY_PROPERTIES"]["TEXT_BLOCK"]["VALUE"]["TEXT"]?></div>
                 <?endif;?>
                 <?if($arResult["DISPLAY_PROPERTIES"]["NEXT_BLOCK"]["VALUE"] != "" || $item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["ID"]):?>
                     <div class="idea__picture">
-                        <h4 class="heading-quaternary"><?=$arResult["DISPLAY_PROPERTIES"]["NEXT_BLOCK"]["VALUE"]?></h4>
+                        <h4 class="heading-quaternary" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300"><?=$arResult["DISPLAY_PROPERTIES"]["NEXT_BLOCK"]["VALUE"]?></h4>
                         <?if($item["DISPLAY_PROPERTIES"]["IMG_BLOCK"]["FILE_VALUE"][0]["ID"]):?>
                             <div class="idea__picture-wrap">
                                 <div class="idea__picture-img">
@@ -35,7 +38,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
                     </div>
                 <?endif;?>
                 <?if($item["DISPLAY_PROPERTIES"]["BENEFITS"]["VALUE"]["TEXT"] != ""):?>
-                    <div class="idea__a">
+                    <div class="idea__a" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
                         <?=$item["DISPLAY_PROPERTIES"]["BENEFITS"]["~VALUE"]["TEXT"];?>
                     </div>
                 <?endif;?>
@@ -61,7 +64,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
 
                     </div>
                 <?endif;?>
+                
             </div>
         <?endforeach;?>
+        <a href="#why" class="heading-quaternary section-link" data-href="#why"><?=GetMessage("NEXT_BLOCK")?></a>
     </div>
 <? endif ?>

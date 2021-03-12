@@ -1,53 +1,69 @@
 $(document).ready(function () {
+    $("html body").on("click", ".checkbox-req-box input", function(){
+        $(this).parents(".checkbox-req-box").removeClass("error");
+        $(this).parents(".checkbox-group").removeClass("error");
+    });
     function checkRequired(form) {
         var error = false;
         form.find(".required").each(function () {
             $(this).parents(".popup__group").removeClass("error");
-
-            switch ($(this).attr("type")) {
-                // case "checkbox":
-                //     $(this).parents("label").removeClass("error");
-                //     if ($(this).prop('checked') === false) {
-                //         $(this).parents("label").addClass("error");
-                //         $(this).addClass("error");
-                //         error = true;
-                //     }
-                //     break;
-                // case "file":
-                //     if (!this.files[0]) {
-                //         $(this).addClass("error");
-                //         $(this).next(".form__add-file").addClass("error");
-                //         error = true;
-                //     }
-                //     break;
-                // case "radio":
-                //     error = true;
-                //     $(this).parents(".radio_group").find("input[name=" + $(this).prop("name") + "]").each(function () {
-                //         if ($(this).prop('checked') !== false) {
-                //             error = false;
-                //         }
-                //     });
-                //     if (error) {
-                //         $.fancybox.open($(this).parents(".radio_group").find(".radio_group_title").text());
-                //     }
-                //     break;
-
-                case "text":
-                    if ($(this).val() == "") {
-                        error = true;
-                        $(this).parents(".popup__group").addClass("error");
-                    }
-
-                    // if ($(this).hasClass("input-phone")) {
-                    //     console.log($(this).val().indexOf('_'));
-                    //     if($(this).val().indexOf('_') != -1){
+            if($(this).hasClass("popup__textarea")){
+                if ($(this).val() == "") {
+                    error = true;
+                    $(this).parents(".popup__group").addClass("error");
+                }
+            }else {
+                switch ($(this).attr("type")) {
+                    case "checkbox":
+                        if($(this).parents(".checkbox-req-box").hasClass("checkbox-group")){
+                            $(this).parents(".checkbox-group").removeClass("error");
+                            if(!$(this).parents(".checkbox-group").find('input').is(':checked')){
+                                error = true;
+                                $(this).parents(".checkbox-group").addClass("error");
+                            }
+                        }else{
+                            $(this).parents(".popup__checkbox").removeClass("error");
+                            if ($(this).prop('checked') === false) {
+                                error = true;
+                                $(this).parents(".popup__checkbox").addClass("error");
+                            }
+                        }
+                        break;
+                    // case "file":
+                    //     if (!this.files[0]) {
+                    //         $(this).addClass("error");
+                    //         $(this).next(".form__add-file").addClass("error");
                     //         error = true;
-                    //         $(this).parents(".popup__group").addClass("error");
                     //     }
-                    // }
+                    //     break;
+                    // case "radio":
+                    //     error = true;
+                    //     $(this).parents(".radio_group").find("input[name=" + $(this).prop("name") + "]").each(function () {
+                    //         if ($(this).prop('checked') !== false) {
+                    //             error = false;
+                    //         }
+                    //     });
+                    //     if (error) {
+                    //         $.fancybox.open($(this).parents(".radio_group").find(".radio_group_title").text());
+                    //     }
+                    //     break;
 
+                    case "text":
+                        $(this).parents(".popup__group").removeClass("error");
+                        if ($(this).val() == "") {
+                            error = true;
+                            $(this).parents(".popup__group").addClass("error");
+                        }
 
-                    break;
+                        // if ($(this).hasClass("input-phone")) {
+                        //     console.log($(this).val().indexOf('_'));
+                        //     if($(this).val().indexOf('_') != -1){
+                        //         error = true;
+                        //         $(this).parents(".popup__group").addClass("error");
+                        //     }
+                        // }
+                        break;
+                }
             }
 
         });
@@ -132,11 +148,17 @@ $(document).ready(function () {
         return valid;
     }
     // Отправка формы
-    $('.popup__btn').on('click', function (e) {
+    $("html body").on('click', '.popup__btn', function (e) {
         e.preventDefault();
         let form = $(this).parents("form");
-        console.log(form.find("input[name=consent]").is(':checked'));
-        if(formValid(form) && form.find("input[name=consent]").is(':checked')){
+        if(!form.find("input").hasClass("error") && !form.find("textarea").hasClass("error") && !form.find(".checkbox-req-box").hasClass("error")){
+            $(".input-captcha").removeClass("error");
+        }
+
+        if($(".input-captcha").val() == "" ){
+            $(".input-captcha").addClass("error");
+        }
+        if (formValid(form) && form.find("input[name=consent]").is(':checked')) {
             var formData = new FormData();
             var form_data = $("#quest form *").serializeArray();
             $.each(form_data, function (key, input) {
@@ -148,50 +170,82 @@ $(document).ready(function () {
                     formData.append($(this).attr("name"), file_data[i]);
                 }
             });
+
             //var formData = form.serialize();
-            $.ajax( {
+            $.ajax({
                 type: "POST",
                 url: "/ajax/send-form.php",
                 processData: false,
                 contentType: false,
                 data: formData,
                 async: false,
-                success: function( response ) {
+                success: function (response) {
                     console.log(response);
-                    if(response.trim() == "send"){
+                    if (response.trim() == "send") {
                         form.hide();
                         $('.popup .fancybox-close-small').hide();
                         form.siblings('.popup__success').show();
                     }
+                    if(response.trim() == "captcha"){
+                        $(".input-captcha").addClass("error");
+                    }
                 }
             });
+
         }
     });
-    $("html body").on("click", ".popup__document-name", function(){
+    $("html body").on("click", ".recode-captcha", function(){
+        var box = $(this).parents(".captcha_box");
+        $.ajax({
+            type: "POST",
+            url: "/ajax/captcha-recode.php",
+            success: function (code) {
+                //console.log(code);
+                box.find(".sid-captcha").val(code);
+                box.find(".img-captcha").attr("src", "/bitrix/tools/captcha.php?captcha_sid="+code);
+            }
+        });
+    });
+    $("html body").on("click", ".popup__document-name", function () {
         var box = $(this).parents(".popup__document");
         var fileInput = $(this).siblings("input");
-        if(fileInput.length>1){
-            fileInput = fileInput[fileInput.length-1];
+        if (fileInput.length > 1) {
+            fileInput = fileInput[fileInput.length - 1];
             $(fileInput).click();
-        }else{
+        } else {
             fileInput.click();
         }
     });
-    $("html body").on("input", ".hidden-input-file", function(){
+    $("html body").on("input", ".hidden-input-file", function () {
         var box = $(this).parents(".popup__group");
         var fileName = this.files[0]["name"];
         var newInput = $(this).clone();
-        var numFile = Number(newInput.attr("data-num-file"))+1;
-        newInput.attr("name", "file["+numFile+"]");
+        var numFile = Number(newInput.attr("data-num-file")) + 1;
+        newInput.attr("name", "file[" + numFile + "]");
         newInput.attr("data-num-file", numFile);
         newInput.attr("value", "");
         newInput.val(null);
         $(this).after(newInput);
-        box.find(".popup__document:last-child").before('<div class="popup__document --loaded" data-num-input="'+newInput.data("num-file")+'"><div class="popup__document-icon"></div> <div class="popup__document-name">'+fileName+'</div></div>');
+        box.find(".popup__document:last-child").before('<div class="popup__document --loaded" data-num-input="' + newInput.data("num-file") + '"><div class="popup__document-icon"></div> <div class="popup__document-name">' + fileName + '</div><div class="popup__document-delete"></div></div>');
+    });
+    $("html body").on("click", ".popup__document-delete", function(){
+        var box = $(this).parents(".popup__document");
+        var indexInput = Number(box.attr("data-num-input")) - 1;
+        var form = $(this).parents("form");
+        form.find("input[data-num-file="+indexInput+"]").detach();
+        box.detach();
     });
     $('.popup__success-close').on('click', function () {
         $.fancybox.close();
     });
+
+
+    // COOKIE
+
+    $('.cookie__accept').on('click', function () {
+        $(this).closest('.cookie').fadeOut();
+    });
+
 
 
     // МАСКА ДЛЯ ТЕЛЕФОНА
@@ -200,28 +254,35 @@ $(document).ready(function () {
         showMaskOnHover: false,
     });
 
-
-    // ПЛАВНЫЕ ЯКОРЯ ИЗ ШАПКИ
-    $('.section-link').on('click', function (e) {
-        e.preventDefault();
-        let id = $(this).attr('href'),
-            top = $(id).offset().top;
-        $('body,html').animate({
-            scrollTop: top
+    // Якоря
+    $('.section-link').click(function () {
+        var elementClick = $(this).attr("data-href");
+        var destination = $(elementClick).offset().top;
+        jQuery("html:not(:animated),body:not(:animated)").animate({
+            scrollTop: destination - 150
         }, 1000);
+        return false;
     });
 
+    var myHash = location.hash;
+    location.hash = '';
+    if (myHash[1] != undefined) {
+        var offsetTop = $(myHash).offset().top - 150;
+        $('html, body').animate({
+            scrollTop: offsetTop
+        }, 1000);
+    }
+
     $(window).scroll(function () {
-        let sections = $('section');
+        let sections = $('.section');
         sections.each(function (i, el) {
             let top = $(el).offset().top - 100;
             let bottom = top + $(el).height();
             let scroll = $(window).scrollTop();
-            let id = $(el).attr('id');
+            let id = $(el).attr('data-href');
             if (scroll > top && scroll < bottom) {
-                $('a.active').removeClass('active');
-                $('a[href="#' + id + '"]').addClass('active');
-
+                $('.header__nav-link').removeClass('active');
+                $('.header__nav-link[data-href="#' + id + '"]').addClass('active');
             }
         })
     });
@@ -229,30 +290,32 @@ $(document).ready(function () {
     // FANCYBOX
     $('.fancybox-link').fancybox({});
 
-
-    // СМЕНА ЭКРАНА НА СТАРТЕ
-    // function showMain() {
-    //     $('body').addClass('play-anim');
-    //     setTimeout(() => {
-    //         $('body').removeClass('first');
-    //     }, 500);
-    // }
-
-    // $('.start__detail').on('click', function () {
-    //     showMain();
-    // });
-
-    // $(window).on('wheel', function () {
-    //     if ($('body').hasClass('first')) {
-    //         showMain();
-    //     }
-    // });
-
-
+    $('.fancybox-link-quest').fancybox({
+        beforeLoad: function( instance, slide ) {
+            $.ajax({
+                type: "POST",
+                url: "/ajax/quest-form.php",
+                data: {
+                    variant: ""+slide.opts.$orig.data("variant")+"",
+                    case_id: slide.opts.$orig.data("case"),
+                    mail_template: slide.opts.$orig.data("template")
+                },
+                dataType: "html",
+                success: function (responseData) {
+                    $("#quest .popup__form").detach();
+                    $("#quest").prepend(responseData);
+                    $('.input-phone').inputmask({
+                        mask: "+ 7(999)999-99-99",
+                        showMaskOnHover: false,
+                    });
+                }
+            });
+        }
+    });
 
     // RELLAX
     var rellax = new Rellax('.rellax', {
-        speed: 1,
+        speed: 2,
         center: true,
         wrapper: null,
         round: true,
@@ -260,8 +323,34 @@ $(document).ready(function () {
         horizontal: false
     });
 
-    // WOW
-    new WOW().init();
+    var rellaxDevelop = new Rellax('.rellax-develop', {
+        speed: .6,
+        center: true,
+        wrapper: null,
+        round: true,
+        vertical: true,
+        horizontal: false
+    });
+
+    // AOS
+    AOS.init({
+        once: true,
+        disable: 'mobile'
+    });
+
+    // Анимация графика
+    if ($('div').hasClass('demand__reason')) {
+        let animationStared = false;
+        $(window).scroll(function () {
+            if (animationStared) return;
+            if ($(window).scrollTop() + $(window).height() > $('.demand__chart svg').height() + $('.demand__chart svg').offset().top) {
+                $('#anim-chart')[0].beginElement();
+                $('.demand__reason').addClass('active');
+                animationStared = true
+            }
+        });
+    }
+
 
     // Увеличение блоков при ховере
     $('.increase__item').on('mouseover', function () {
@@ -296,7 +385,103 @@ $(document).ready(function () {
         });
     }
 
-    if ($('div').hasClass('panel__functions-slider')) {
+    if ($('div').hasClass('news__content') && $(window).width() < 767.9) {
+        var newsSlider = new Swiper('.news.--section  .news__content', {
+            spaceBetween: 20,
+            slidesPerView: 1.5,
+            freeMode: true
+        });
+    }
+    // КЕЙСЫ
+    if ($('div').hasClass('cases__slider')) {
+        var casesSlider = new Swiper('.cases__slider', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            speed: 600,
+            navigation: {
+                nextEl: '.cases__slider-next',
+                prevEl: '.cases__slider-prev',
+            },
+            breakpoints: {
+                577: {
+                    direction: 'vertical',
+                    spaceBetween: 25,
+                }
+            },
+        });
+
+        casesSlider.snapGrid = casesSlider.slidesGrid.slice(0);
+
+        $('.cases__slider-amount .total').text(casesSlider.slides.length);
+
+
+
+        function casesCurrentSlides() {
+            $('.cases__slider-amount .current').text(casesSlider.activeIndex + 1);
+
+        }
+
+        casesCurrentSlides();
+
+        casesSlider.on('slideChange', function () {
+            casesCurrentSlides();
+            $('.cases__slider-item').removeClass('active');
+            $('.cases__slider-item').eq(casesSlider.activeIndex).addClass('active');
+            casesAnim($('.cases__slider').find('.swiper-slide').eq(casesSlider.activeIndex).attr('data-item'));
+        });
+
+        // КЕЙСЫ
+        let animCan = true;
+
+        function mobCaseHeight() {
+            let caseHeight = $('.cases__item.active').outerHeight();
+            $('.cases__c.--cases').css('height', `${caseHeight}px`);
+        }
+        if ($(window).width() < 767.9) {
+            mobCaseHeight();
+        }
+
+        function casesAnim(n) {
+
+            if (animCan) {
+                $('.--cases').append($('.cases__item.active'));
+
+                $('.cases__item.active').animate({
+                    top: '50%',
+                    opacity: 0,
+                }, 500, function () {
+                    $(this).removeClass('active');
+                    $(this).attr('style', '');
+                });
+
+                $(`.--cases .cases__item[data-case=${n}]`).addClass('active');
+
+                $('.cases__dummy').addClass('animated');
+                if ($(window).width() < 767.9) {
+                    mobCaseHeight();
+                }
+
+                animCan = false;
+                setTimeout(function () {
+                    $('.cases__dummy').removeClass('animated');
+                    $('.--cases').append($('.cases__item.active'));
+                    animCan = true;
+                }, 510);
+            }
+        }
+
+
+        $('.cases__slider').on('click', '.cases__slider-item:not(.cases__slider-item.active)', function () {
+            casesSlider.slideTo($(this).index());
+            casesAnim($(this).attr('data-item'));
+        });
+
+    }
+
+
+    // Появление панели
+    // инициализация слайдера после открытия кейса
+    function initDevice() {
         var deviceSlider = new Swiper('.panel__functions-slider', {
             spaceBetween: 100,
             pagination: {
@@ -323,93 +508,27 @@ $(document).ready(function () {
         });
     }
 
-    if ($('div').hasClass('news__content') && $(window).width() < 767.9) {
-        var newsSlider = new Swiper('.news.--section  .news__content', {
-            spaceBetween: 20,
-            slidesPerView: 1.5,
-            freeMode: true
-        });
-    }
-
-    if ($('div').hasClass('cases__slider')) {
-        var casesSlider = new Swiper('.cases__slider', {
-            spaceBetween: 25,
-            navigation: {
-                nextEl: '.cases__slider-next',
-                prevEl: '.cases__slider-prev',
-            },
-        });
-
-        $('.cases__slider-amount .total').text(casesSlider.slides.length * 3);
-
-
-
-        function casesCurrentSlides() {
-            $('.cases__slider-amount .current').text((casesSlider.activeIndex + 1) * 3);
-
-        }
-
-        casesCurrentSlides();
-
-        casesSlider.on('slideChange', function () {
-            casesCurrentSlides();
-            casesAnim($('.cases__slider').find('.swiper-slide').eq(casesSlider.activeIndex).find('.cases__slider-item:first-child').attr('data-item'));
-        });
-
-        // КЕЙСЫ
-        let animCan = true;
-
-        function casesAnim(n) {
-
-            if (animCan) {
-                $('.--cases').append($('.cases__item.active'));
-
-                $('.cases__slider-item').removeClass('active');
-                $('.cases__slider-item').eq(n).addClass('active');
-
-                $('.cases__item.active').animate({
-                    top: '50%',
-                    opacity: 0,
-                }, 500, function () {
-                    $(this).removeClass('active');
-                    $(this).attr('style', '');
-                });
-
-                $(`.--cases .cases__item[data-case=${n}]`).addClass('active');
-
-                $('.cases__dummy').addClass('animated');
-
-                animCan = false;
-                setTimeout(function () {
-                    $('.cases__dummy').removeClass('animated');
-                    $('.--cases').append($('.cases__item.active'));
-                    animCan = true;
-                }, 510);
-            }
-        }
-
-
-        $('.cases__slider').on('click', '.cases__slider-item:not(.cases__slider-item.active)', function () {
-            casesAnim($(this).attr('data-item'));
-        });
-
-    }
-
-
-    // Появление панели
     $('.develop .btn').on('click', function () {
         let panelId = $(this).data('panel-id');
         let path = $(this).attr('data-link');
-        $.ajax( {
+        console.log();
+        console.log(123);
+        $.ajax({
             type: "POST",
             url: "/ajax/developPanel.php",
-            data: {panelId:panelId},
+            data: {
+                panelId: panelId
+            },
             dataType: "html",
-            success: function( responseData ) {
-                //console.log(responseData);
+            success: function (responseData) {
                 $(".popup-panel-box").html(responseData);
-                $(`.${path}`).addClass('active');
-                $('body').addClass('--overflow');
+                setTimeout(() => {
+                    $(`.${path}`).addClass('active');
+                    if ($(`.${path}`).find('.panel__functions').length > 0) {
+                        initDevice();
+                    }
+                    $('body').addClass('--overflow');
+                }, 100);
             }
         });
     });
@@ -422,121 +541,9 @@ $(document).ready(function () {
         closePanel();
     });
 
-    //WAVES
-    if ($('div').hasClass('waves')) {
-        var SEPARATION = 100,
-            AMOUNTX = 50,
-            AMOUNTY = 20;
-
-        var container;
-        var camera, scene, renderer;
-
-        var particles, particle, count = 0;
-
-        var mouseX = 85,
-            mouseY = -342;
-
-        var windowHalfX = window.innerWidth / 2;
-        var windowHalfY = window.innerHeight / 2;
-
-        init();
-        animate();
-
-        function init() {
-
-            container = document.querySelector('.waves');
-
-            camera = new THREE.PerspectiveCamera(120, window.innerWidth / window.innerHeight, 1, 10000);
-            camera.position.z = 1000;
-
-            scene = new THREE.Scene();
-
-            particles = new Array();
-
-            var PI2 = Math.PI * 2;
-            var material = new THREE.ParticleCanvasMaterial({
-
-                color: 0xe1e1e1,
-                program: function (context) {
-
-                    context.beginPath();
-                    context.arc(0, 0, .4, 0, PI2, true);
-                    context.fill();
-
-                }
-
-            });
-
-            var i = 0;
-
-            for (var ix = 0; ix < AMOUNTX; ix++) {
-
-                for (var iy = 0; iy < AMOUNTY; iy++) {
-
-                    particle = particles[i++] = new THREE.Particle(material);
-                    particle.position.x = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 2);
-                    particle.position.z = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 2);
-                    scene.add(particle);
-
-                }
-
-            }
-
-            renderer = new THREE.CanvasRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            container.appendChild(renderer.domElement);
-
-            //
-
-            window.addEventListener('resize', onWindowResize, false);
-
-        }
-
-        function onWindowResize() {
-
-            windowHalfX = window.innerWidth / 2;
-            windowHalfY = window.innerHeight / 2;
-
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-        }
-
-        function animate() {
-
-            requestAnimationFrame(animate);
-
-            render();
+});
 
 
-        }
-
-        function render() {
-
-            camera.position.x += (mouseX - camera.position.x) * .05;
-            camera.position.y += (-mouseY - camera.position.y) * .05;
-            camera.lookAt(scene.position);
-
-            var i = 0;
-
-            for (var ix = 0; ix < AMOUNTX; ix++) {
-
-                for (var iy = 0; iy < AMOUNTY; iy++) {
-
-                    particle = particles[i++];
-                    particle.position.y = (Math.sin((ix + count) * 0.3) * 50) + (Math.sin((iy + count) * 0.5) * 50);
-                    particle.scale.x = particle.scale.y = (Math.sin((ix + count) * .2) + 1) * 2 + (Math.sin((iy + count) * 0.5) + 1) * 2;
-
-                }
-
-            }
-
-            renderer.render(scene, camera);
-
-            count += 0.04;
-
-        }
-    }
+$(window).on('load', function () {
+    AOS.refresh();
 });

@@ -6,11 +6,12 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
     <?//echo "<pre>"; print_r($arResult["ITEMS"]); echo "</pre>";?>
     <section class="news --section">
         <div class="container">
-            <div class="news__other">Другие новости</div>
+            <div class="news__other"><?=GetMessage("OTHER_NEWS")?></div>
 
             <div class="news__content swiper-container">
                 <div class="swiper-wrapper">
                     <?foreach ($arResult["ITEMS"] as $item):?>
+                        <?if($item["PROPERTIES"]["NEWS_BLOCKS"]["VALUE"] == ""){continue;}?>
                         <a href="<?=$item["DETAIL_PAGE_URL"]?>" class="news__item swiper-slide">
                             <div class="news__img">
                                 <img src="<?=$item["PREVIEW_PICTURE"]["SRC"]?>" alt="<?=$item["NAME"]?>">

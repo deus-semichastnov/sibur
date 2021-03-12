@@ -60,16 +60,29 @@ if(CModule::IncludeModule('iblock')){
             }
         }
     }
+    if($_REQUEST["PROPERTY"]["DIRECTION"]){
+        $arEventFields["THEME"] = $_REQUEST["PROPERTY"]["DIRECTION"];
+    }
+    if($_REQUEST["PROPERTY"]["CASE"]){
+        $res = CIBlockElement::GetByID($_REQUEST["PROPERTY"]["CASE"]);
+        if($ar_res = $res->GetNext()){
+            $arEventFields["THEME"] = $ar_res['NAME'];
+        }
+    }
     $arEventFields["EMAIL_TO"] = "e.semichastnov@web-hands.ru";
     $sendTpl = "FEEDBACK";
-    if(isset($_GET["sendTpl"]) && $_GET["sendTpl"] != ""){
-        $sendTpl = $_GET["sendTpl"];
+    if(isset($_REQUEST["sendTpl"]) && $_REQUEST["sendTpl"] != ""){
+        $sendTpl = $_REQUEST["sendTpl"];
     }
-    if ( CEvent::Send( $sendTpl, "s1", $arEventFields ) ) {
-        $el = new CIBlockElement;
-        if ( $el->Add( $arLoadProductArray ) ) {
-            echo "send";
+    if ($APPLICATION->CaptchaCheckCode($_REQUEST["captcha_word"], $_REQUEST["captcha_sid"])){
+        if (CEvent::Send($sendTpl, "s1", $arEventFields)) {
+            $el = new CIBlockElement;
+            if ($el->Add($arLoadProductArray)) {
+                echo "send";
+            }
         }
+    }else{
+        echo "captcha";
     }
 //    echo "<pre>"; print_r($arLoadProductArray); echo "</pre>";
 //    echo "<pre>"; print_r($arEventFields); echo "</pre>";

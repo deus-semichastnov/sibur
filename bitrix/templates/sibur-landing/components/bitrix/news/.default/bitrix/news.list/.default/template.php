@@ -15,11 +15,12 @@ $this->setFrameMode(true);
 <section class="news">
     <div class="container">
         <h3 class="heading-tertiary"><?$arResult["NAME"]?></h3>
-        <h2 class="heading-secondary">Анонсы событий</h2>
+        <h2 class="heading-secondary"><?=GetMessage("EVENT_ANNOUNCEMENTS")?></h2>
 
         <div class="news__content">
             <? if (!empty($arResult["ITEMS"])): ?>
                 <?foreach ($arResult["ITEMS"] as $item):?>
+                    <?if($item["PROPERTIES"]["NEWS_BLOCKS"]["VALUE"] == ""){continue;}?>
                     <a href="<?=$item["DETAIL_PAGE_URL"]?>" class="news__item">
                         <div class="news__img">
                             <img src="<?=$item["PREVIEW_PICTURE"]["SRC"]?>" alt="<?=$item["NAME"]?>">
@@ -27,7 +28,7 @@ $this->setFrameMode(true);
                         <div class="news__date"><?=$item["DISPLAY_ACTIVE_FROM"]?></div>
                         <div class="news__name"><?=$item["NAME"]?></div>
                         <div class="news__read">
-                            Читать
+                            <?=GetMessage("READ")?>
                             <svg>
                                 <use xlink:href="<?=SITE_TEMPLATE_PATH?>/img/sprite-other.svg#icon-read"></use>
                             </svg>
@@ -35,7 +36,7 @@ $this->setFrameMode(true);
                     </a>
                 <?endforeach;?>
             <?else:?>
-                Новостей нет.
+                <?=GetMessage("NOT_NEWS")?>
             <?endif;?>
         </div>
     </div>

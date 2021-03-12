@@ -1,23 +1,23 @@
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Главная");
 ?>
-    <div class="waves"></div>
+<div class="waves"></div>
 
 
-    <div class="cookie">
-        <div class="cookie__text">Мы используем файлы cookie, чтобы вам было удобнее пользоваться нашим сайтом.
-            Используя наш сайт, вы даете согласие на использование файлов cookie. <a href="#">Узнать больше</a>
-        </div>
-        <div class="cookie__btns">
-            <div class="cookie__accept">Принять и продолжить</div>
-            <div class="cookie__refuse">Отказаться</div>
-        </div>
+<div class="cookie">
+    <div class="cookie__text">Мы используем файлы cookie, чтобы вам было удобнее пользоваться нашим сайтом.
+        Используя наш сайт, вы даете согласие на использование файлов cookie. <a href="#">Узнать больше</a>
     </div>
+    <div class="cookie__btns">
+        <div class="cookie__accept">Принять и продолжить</div>
+        <div class="cookie__refuse">Отказаться</div>
+    </div>
+</div>
 
 
-    <section class="start">
-        <div class="container">
-            <?$APPLICATION->IncludeComponent("bitrix:news.detail","start",Array(
+<section class="start">
+    <div class="container">
+        <?$APPLICATION->IncludeComponent("bitrix:news.detail","start",Array(
                     "IBLOCK_TYPE" => "screens",
                     "IBLOCK_ID" => "9",
                     "ELEMENT_ID" => 94,
@@ -44,19 +44,19 @@ $APPLICATION->SetTitle("Главная");
                 )
             );?>
 
-        </div>
-    </section>
+    </div>
+</section>
 
 
-    <div class="main-fake"></div>
+<div class="main-fake"></div>
 
 
-    <main class="main">
+<main class="main">
 
 
-        <section class="idea" id="idea">
-            <div class="container">
-                <?$APPLICATION->IncludeComponent("bitrix:news.list","two_screen",Array(
+    <section class="idea">
+        <div class="container">
+            <?$APPLICATION->IncludeComponent("bitrix:news.list","two_screen",Array(
                         "IBLOCK_TYPE" => "screens",
                         "IBLOCK_ID" => "10",
                         "NEWS_COUNT" => "3",
@@ -86,16 +86,15 @@ $APPLICATION->SetTitle("Главная");
                         "MESSAGE_404" => ""
                     )
                 );?>
-            </div>
-        </section>
+        </div>
+    </section>
 
 
-
-
-        <section class="why" id="why">
-            <div class="container">
-                <div class="why__wrap">
-                    <?$APPLICATION->IncludeComponent("bitrix:news.detail","why_wrap_1",Array(
+    <section class="why">
+        <div class="anchor" id="why"></div>
+        <div class="container">
+            <div class="why__wrap">
+                <?$APPLICATION->IncludeComponent("bitrix:news.detail","why_wrap_1",Array(
                             "IBLOCK_TYPE" => "screens",
                             "IBLOCK_ID" => "12",
                             "ELEMENT_ID" => 106,
@@ -121,7 +120,7 @@ $APPLICATION->SetTitle("Главная");
                             "MESSAGE_404" => "",
                         )
                     );?>
-                    <?$APPLICATION->IncludeComponent("bitrix:news.detail","why_wrap_2",Array(
+                <?$APPLICATION->IncludeComponent("bitrix:news.detail","why_wrap_2",Array(
                             "IBLOCK_TYPE" => "screens",
                             "IBLOCK_ID" => "12",
                             "ELEMENT_ID" => 107,
@@ -147,14 +146,15 @@ $APPLICATION->SetTitle("Главная");
                             "MESSAGE_404" => "",
                         )
                     );?>
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
-        <section class="demand" id="demand">
-            <div class="container">
-                <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_1",Array(
+    <section class="demand">
+        <div class="anchor" id="demand"></div>
+        <div class="container">
+            <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_1",Array(
                         "IBLOCK_TYPE" => "screens",
                         "IBLOCK_ID" => "13",
                         "ELEMENT_ID" => 108,
@@ -180,7 +180,7 @@ $APPLICATION->SetTitle("Главная");
                         "MESSAGE_404" => "",
                     )
                 );?>
-                <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_d",Array(
+            <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_d",Array(
                         "IBLOCK_TYPE" => "screens",
                         "IBLOCK_ID" => "13",
                         "ELEMENT_ID" => 109,
@@ -206,7 +206,7 @@ $APPLICATION->SetTitle("Главная");
                         "MESSAGE_404" => "",
                     )
                 );?>
-                <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_steps",Array(
+            <?$APPLICATION->IncludeComponent("bitrix:news.detail","demand_steps",Array(
                         "IBLOCK_TYPE" => "screens",
                         "IBLOCK_ID" => "13",
                         "ELEMENT_ID" => 110,
@@ -232,9 +232,9 @@ $APPLICATION->SetTitle("Главная");
                         "MESSAGE_404" => "",
                     )
                 );?>
-            </div>
-        </section>
-        <?$APPLICATION->IncludeComponent("bitrix:news.detail","cases",Array(
+        </div>
+    </section>
+    <?$APPLICATION->IncludeComponent("bitrix:news.detail","cases",Array(
                 "IBLOCK_TYPE" => "screens",
                 "IBLOCK_ID" => "14",
                 "ELEMENT_ID" => 111,
@@ -248,7 +248,7 @@ $APPLICATION->SetTitle("Главная");
                 "SET_META_DESCRIPTION" => "N",
                 "META_DESCRIPTION" => "-",
                 "SET_STATUS_404" => "N",
-                "LINK" => "#",
+                "LINK" => "#quest",
                 "SET_LAST_MODIFIED" => "N",
                 "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
                 "ADD_SECTIONS_CHAIN" => "N",
@@ -261,7 +261,7 @@ $APPLICATION->SetTitle("Главная");
                 "MESSAGE_404" => "",
             )
         );?>
-        <?$APPLICATION->IncludeComponent("bitrix:news.detail","development",Array(
+    <?$APPLICATION->IncludeComponent("bitrix:news.detail","development",Array(
                 "IBLOCK_TYPE" => "screens",
                 "IBLOCK_ID" => "16",
                 "ELEMENT_ID" => 121,
@@ -288,7 +288,7 @@ $APPLICATION->SetTitle("Главная");
                 "MESSAGE_404" => "",
             )
         );?>
-        <?$APPLICATION->IncludeComponent("bitrix:news.list","news_anons",Array(
+    <?$APPLICATION->IncludeComponent("bitrix:news.list","news_anons",Array(
                 "IBLOCK_TYPE" => "news",
                 "IBLOCK_ID" => "18",
                 "NEWS_COUNT" => "3",
@@ -320,5 +320,5 @@ $APPLICATION->SetTitle("Главная");
             )
         );?>
 
-    </main>
+</main>
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

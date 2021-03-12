@@ -4,12 +4,12 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
 ?>
 <? if (!empty($arResult["ITEMS"])): ?>
     <?//echo "<pre>"; print_r($arResult["ITEMS"]); echo "</pre>";?>
-    <section class="news --section">
+    <section class="news --section section" data-href="news">
         <div class="container">
-            <h3 class="heading-tertiary"><?=$arResult["NAME"]?></h3>
+            <h3 class="heading-tertiary" data-aos="fade-up" data-aos-duration="1500"><?=$arResult["NAME"]?></h3>
             <div class="news__head">
-                <h2 class="heading-secondary">Анонсы событий</h2>
-                <a href="/news/" class="news__all">Все новости</a>
+                <h2 class="heading-secondary" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200"><?=GetMessage("EVENT_ANNOUNCEMENTS")?></h2>
+                <a href="/news/" class="news__all"><?=GetMessage("ALL_NEWS")?></a>
             </div>
 
             <div class="news__content swiper-container">

@@ -1,1 +1,1 @@
-Головной офис: <span>117218, Москва, ул. Кржижановского, д. 14, к.3,</span>
+Office: <span>117218, Moscow, st. Krzhizhanovskogo, 14, building 3</span>

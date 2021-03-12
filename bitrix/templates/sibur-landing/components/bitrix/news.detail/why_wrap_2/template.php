@@ -13,6 +13,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
             <?if($arResult["PROPERTIES"]["SLIDER"]["VALUE"]):?>
                 <?$arSlides = getSlides($arResult["PROPERTIES"]["SLIDER"]["VALUE"]);?>
                 <div class="why__offer-content">
+                    <?//echo "<pre>"; print_r($arSlides); echo "</pre>";?>
                     <?foreach ($arSlides as $slide):?>
                         <?$active = "";?>
                         <?if($slide["PROPERTY_ACTIVE_SLIDE_VALUE"]){
@@ -21,7 +22,11 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
                         <div class="why__offer-item<?=$active?> increase__item">
                             <img src="<?=$slide["PIC_SRC"]?>" alt="<?=$slide["NAME"]?>">
                             <div class="why__offer-descr"><?=$slide["PREVIEW_TEXT"]?></div>
-                            <a href="<?=$slide["PROPERTY_LINK_VALUE"]?>" class="btn --white fancybox-link">
+                            <?if($slide["PROPERTY_FORM_VARIANT_VALUE"] == "1"):?>
+                                <a href="<?=$slide["PROPERTY_LINK_VALUE"]?>" class="btn --white  fancybox-link-quest" data-variant="1">
+                            <?else:?>
+                                <a href="<?=$slide["PROPERTY_LINK_VALUE"]?>" class="btn --white  fancybox-link-quest" data-variant="2" data-template="FEEDBACK_2">
+                            <?endif;?>
                                 <?=$slide["PROPERTY_TEXT_BTN_VALUE"]?>
                                 <div class="btn__plus">
                                     <div class="btn__plus-round"></div>
